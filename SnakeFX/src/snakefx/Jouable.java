@@ -207,7 +207,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
               aliment = RessourceAliment2; //récupère la ressource dans le chemin suivant : NomProjet/src/NomProjet/NomFichier.extension
               teteBas = RessourceTeteBas2;
               teteDroite = RessourceTeteDroite2; 
-              teteHaut = RessourceTeteHaut2;
+              teteHaut = RessourceTeteHaut2; //dd
               teteGauche = RessourceTeteGauche2; 
               corps = RessourceCorps2;
               
