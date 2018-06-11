@@ -46,41 +46,41 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
      private ImageIcon ImageTitre;
      private ImageIcon Imagesolo;
      
-     private ImageIcon RessourceTeteDroite1 = new ImageIcon(Jouable.class.getResource("tete_right.png"));
-     private ImageIcon RessourceTeteDroite2 = new ImageIcon(Jouable.class.getResource("tete_right2.png"));
-     private ImageIcon RessourceTeteGauche1 = new ImageIcon(Jouable.class.getResource("tete_left.png"));
-     private ImageIcon RessourceTeteGauche2 = new ImageIcon(Jouable.class.getResource("tete_left2.png"));
-     private ImageIcon RessourceTeteHaut1 = new ImageIcon(Jouable.class.getResource("tete_up.png"));
-     private ImageIcon RessourceTeteHaut2 = new ImageIcon(Jouable.class.getResource("tete_up2.png"));
-     private ImageIcon RessourceTeteBas1 = new ImageIcon(Jouable.class.getResource("tete_down.png"));
-     private ImageIcon RessourceTeteBas2 = new ImageIcon(Jouable.class.getResource("tete_down2.png"));
-     private ImageIcon RessourceTeteDroite3 = new ImageIcon(Jouable.class.getResource("tete_right3.png"));
-     private ImageIcon RessourceTeteDroite4 = new ImageIcon(Jouable.class.getResource("tete_right4.png"));
-     private ImageIcon RessourceTeteGauche3 = new ImageIcon(Jouable.class.getResource("tete_left3.png"));
-     private ImageIcon RessourceTeteGauche4 = new ImageIcon(Jouable.class.getResource("tete_left4.png"));
-     private ImageIcon RessourceTeteHaut3 = new ImageIcon(Jouable.class.getResource("tete_up3.png"));
-     private ImageIcon RessourceTeteHaut4 = new ImageIcon(Jouable.class.getResource("tete_up4.png"));
-     private ImageIcon RessourceTeteBas3 = new ImageIcon(Jouable.class.getResource("tete_down3.png"));
-     private ImageIcon RessourceTeteBas4 = new ImageIcon(Jouable.class.getResource("tete_down4.png"));
-     private ImageIcon RessourceCorps1 = new ImageIcon(Jouable.class.getResource("corps.png"));
-     private ImageIcon RessourceCorps2 = new ImageIcon(Jouable.class.getResource("corps2.png"));
-     private ImageIcon RessourceCorps3 = new ImageIcon(Jouable.class.getResource("corps3.png"));
-     private ImageIcon RessourceCorps4 = new ImageIcon(Jouable.class.getResource("corps4.png"));
-     private ImageIcon RessourceAliment1 = new ImageIcon(Jouable.class.getResource("pomme.png"));
-     private ImageIcon RessourceAliment2 = new ImageIcon(Jouable.class.getResource("pomme2.png"));
-     private ImageIcon RessourceSmiley1 = new ImageIcon(Jouable.class.getResource("smiley1.png"));
-     private ImageIcon RessourceSmiley2 = new ImageIcon(Jouable.class.getResource("smiley2.png"));
-     private ImageIcon RessourceImageTitre1 = new ImageIcon(Jouable.class.getResource("titre.png"));
-     private ImageIcon RessourceImageTitre2 = new ImageIcon(Jouable.class.getResource("titre2.png"));
-     private ImageIcon RessourceImageSolo1 = new ImageIcon(Jouable.class.getResource("solo1.png"));
-     private ImageIcon RessourceImageSolo2 = new ImageIcon(Jouable.class.getResource("solo2.png"));
-     private ImageIcon RessourceImageSoleil = new ImageIcon(Jouable.class.getResource("soleil.png"));
-     private ImageIcon RessourceImageSoleil2 = new ImageIcon(Jouable.class.getResource("soleil2.png"));
-     private ImageIcon RessourceBonus1 = new ImageIcon(Jouable.class.getResource("bonus1.png"));
-     private ImageIcon RessourceBonus2 = new ImageIcon(Jouable.class.getResource("bonus2.png"));
-     private ImageIcon RessourceBonus3 = new ImageIcon(Jouable.class.getResource("bonus3.png"));
-     private ImageIcon RessourceBonus4 = new ImageIcon(Jouable.class.getResource("bonus4.png"));
-     private ImageIcon RessourceBonus5 = new ImageIcon(Jouable.class.getResource("bonus5.png"));
+     private ImageIcon RessourceTeteDroite1 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tete/tete_right.png"));
+     private ImageIcon RessourceTeteDroite2 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tete/tete_right2.png"));
+     private ImageIcon RessourceTeteGauche1 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tete/tete_left.png"));
+     private ImageIcon RessourceTeteGauche2 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tete/tete_left2.png"));
+     private ImageIcon RessourceTeteHaut1 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tete/tete_up.png"));
+     private ImageIcon RessourceTeteHaut2 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tete/tete_up2.png"));
+     private ImageIcon RessourceTeteBas1 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tete/tete_down.png"));
+     private ImageIcon RessourceTeteBas2 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tete/tete_down2.png"));
+     private ImageIcon RessourceTeteDroite3 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tete/tete_right3.png"));
+     private ImageIcon RessourceTeteDroite4 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tete/tete_right4.png"));
+     private ImageIcon RessourceTeteGauche3 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tete/tete_left3.png"));
+     private ImageIcon RessourceTeteGauche4 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tete/tete_left4.png"));
+     private ImageIcon RessourceTeteHaut3 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tete/tete_up3.png"));
+     private ImageIcon RessourceTeteHaut4 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tete/tete_up4.png"));
+     private ImageIcon RessourceTeteBas3 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tete/tete_down3.png"));
+     private ImageIcon RessourceTeteBas4 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tete/tete_down4.png"));
+     private ImageIcon RessourceCorps1 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Corps/corps.png"));
+     private ImageIcon RessourceCorps2 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Corps/corps2.png"));
+     private ImageIcon RessourceCorps3 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Corps/corps3.png"));
+     private ImageIcon RessourceCorps4 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Corps/corps4.png"));
+     private ImageIcon RessourceAliment1 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Bonus/pomme.png"));
+     private ImageIcon RessourceAliment2 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Bonus/pomme2.png"));
+     private ImageIcon RessourceSmiley1 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Bonus/smiley1.png"));
+     private ImageIcon RessourceSmiley2 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Bonus/smiley2.png"));
+     private ImageIcon RessourceImageTitre1 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Titre/titre.png"));
+     private ImageIcon RessourceImageTitre2 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Titre/titre2.png"));
+     private ImageIcon RessourceImageSolo1 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Titre/solo1.png"));
+     private ImageIcon RessourceImageSolo2 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Titre/solo2.png"));
+     private ImageIcon RessourceImageSoleil = new ImageIcon(Jouable.class.getResource("RessourcesImg/Bonus/soleil.png"));
+     private ImageIcon RessourceImageSoleil2 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Bonus/soleil2.png"));
+     private ImageIcon RessourceBonus1 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Bonus/bonus1.png"));
+     private ImageIcon RessourceBonus2 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Bonus/bonus2.png"));
+     private ImageIcon RessourceBonus3 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Bonus/bonus3.png"));
+     private ImageIcon RessourceBonus4 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Bonus/bonus4.png"));
+     private ImageIcon RessourceBonus5 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Bonus/bonus5.png"));
      
     private Random aleatoire = new Random();
     private int posX = aleatoire.nextInt(34); //aleatoire parmi les 34 positions possible pour les abscices des aliments
@@ -108,7 +108,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
  //   final JFXPanel fxPanel = new JFXPanel();
     private MediaView mv;
     private MediaPlayer mediaplayer;
-    private int indexRessource = 1;
+    private int indexRessource = 0;
     
    public void init(Joueur j){
        j.getTete().addTeteDroite(RessourceTeteDroite1);
@@ -147,8 +147,8 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
         joueur = new Joueur(this);
         init(joueur);
         timer = new Timer(delai, this);//timer gerant la vitesse du serpent
-        Lecteur.play("RessourcesSon/Musique/Disco Descent.mp3", 0.2);
-        Lecteur.playVideo("RessourcesSon/Musique/DiscoDescentRL.mp4");
+        Lecteur.play("RessourcesSon/Disco Descent.mp3", 0.2);
+        Lecteur.playVideo("RessourcesSon/DiscoDescentRL.mp4");
     }
     
     public void paint(Graphics g) //Méthode chargée de définir l'interface graphique
@@ -165,7 +165,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
               {
                   
                    lecteurVideo = true;
-                   Lecteur.playVideo("RessourcesSon/Musique/DiscoDescentRL.mp4");
+                   Lecteur.playVideo("RessourcesSon/DiscoDescentRL.mp4");
                               
               }
               if(pulsation > 207)
@@ -177,7 +177,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
               smiley = RessourceSmiley1;
               Imagesolo = RessourceImageSolo1;
               aliment = RessourceImageSoleil;
-              indexRessource = 3; 
+              indexRessource = 2; 
              
               couleurScore = Color.YELLOW;
               couleurLabelScore = Color.CYAN;
@@ -192,7 +192,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
               {
               smiley = null;
               aliment = RessourceAliment1; //récupère la ressource dans le chemin suivant : NomProjet/src/NomProjet/NomFichier.extension
-              indexRessource = 1 ;
+              indexRessource = 0 ;
               couleurScore = Color.YELLOW;
               couleurLabelScore = Color.CYAN;
               couleurTaille = Color.CYAN;
@@ -211,7 +211,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
               smiley = RessourceSmiley2;
               Imagesolo = RessourceImageSolo2;
               aliment = RessourceImageSoleil2;
-              indexRessource = 4 ;
+              indexRessource = 3 ;
               couleurScore = Color.CYAN;
               couleurLabelScore = Color.YELLOW;
               couleurTaille = Color.YELLOW;
@@ -224,7 +224,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
                   smiley = null;
               
               aliment = RessourceAliment2; //récupère la ressource dans le chemin suivant : NomProjet/src/NomProjet/NomFichier.extension
-              indexRessource = 2 ;
+              indexRessource = 1 ;
               
               couleurScore = Color.CYAN;
               couleurLabelScore = Color.YELLOW;
@@ -323,7 +323,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
            Lecteur.stopAllAudio();
            Lecteur.stopVideo();
            start = false;
-           indexRessource = 1; //récupère la ressource dans le chemin suivant : NomProjet/src/NomProjet/NomFichier.extension
+           indexRessource = 0; //récupère la ressource dans le chemin suivant : NomProjet/src/NomProjet/NomFichier.extension
            joueur.getTete().getTeteDroite().get(indexRessource).paintIcon(this, g, joueur.getTete().getX(), joueur.getTete().getY()); //affiche l'image la où les coordonnées x,y sont indiqués, correspondant au coin supérieur gauche de l'image
        }
        
@@ -402,7 +402,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
         if((joueur.getDeplacement() == 0 && e.getKeyCode()== KeyEvent.VK_UP)|| (joueur.getDeplacement() == 0 && e.getKeyCode()== KeyEvent.VK_DOWN)||(joueur.getDeplacement() == 0 && e.getKeyCode()== KeyEvent.VK_RIGHT))
         {
             
-            Lecteur.play("RessourcesSon/Musique/Disco Descent.mp3", 0.2);
+            Lecteur.play("RessourcesSon/Disco Descent.mp3", 0.2);
             
            
             timer.start();
@@ -422,7 +422,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
             start = true;
             joueur = new Joueur(this);
             pisteboucle = 1;
-            indexRessource= 1;
+            indexRessource= 0;
             repaint();
             }
         }
@@ -487,7 +487,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
         if(pulsation == 336 && !test) //2:55:500 //175500
         {  
         test = true;
-        Lecteur.play("RessourcesSon/Musique/DiscoDescentBoucle.mp3", 0.2);
+        Lecteur.play("RessourcesSon/DiscoDescentBoucle.mp3", 0.2);
         boucle = 1768;
         pulsation = 17;
         pisteboucle = 1;
@@ -499,12 +499,12 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
             {
                 if(pisteboucle == 1)
                 {
-                Lecteur.play("RessourcesSon/Musique/DiscoDescentBoucle2.mp3", 0.2);
+                Lecteur.play("RessourcesSon/DiscoDescentBoucle2.mp3", 0.2);
                 pisteboucle = 2;
                 }
                 else
                 {
-                    Lecteur.play("RessourcesSon/Musique/DiscoDescentBoucle.mp3", 0.2);
+                    Lecteur.play("RessourcesSon/DiscoDescentBoucle.mp3", 0.2);
                     pisteboucle = 1;
                 }
                 boucle = 1768;
@@ -520,9 +520,9 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
         switch(joueur.getTete().getDir())
         {       
             case up:
-                for (int i = joueur.getTailleCorps()-1; i>=0; i--) //virage
+                for (int i = joueur.getTailleCorps()-1; i>0; i--) //virage
                 {
-                    joueur.getSerpent().get(i+1).setX(joueur.getSerpent().get(i).getX());//fait suivre les éléments du corps jusqu'à la tête lors d'un virage
+                    joueur.getSerpent().get(i).setX(joueur.getSerpent().get(i-1).getX());//fait suivre les éléments du corps jusqu'à la tête lors d'un virage
                 }
                 for(int i = joueur.getTailleCorps(); i>=0; i--) //boucle faisant bouger le serpent en modifiant les ordonnées
                 {
@@ -532,21 +532,21 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
                     }
                     else //puis ce sera au tour du reste du corps de bouger et donc de suivre la tête
                     {
-                        joueur.getSerpent().get(i).setY(joueur.getSerpent().get(i-1).getY()); //une fois la tête bougée, l'élément suivant viendra prendre sa place et ainsi s'acroché a la tête; opération réalisée pour tout le reste du corps
+                        joueur.getSerpent().get(i-1).setY(joueur.getSerpent().get(i-2).getY()); //une fois la tête bougée, l'élément suivant viendra prendre sa place et ainsi s'acroché a la tête; opération réalisée pour tout le reste du corps
                     }
-                    if(joueur.getSerpent().get(i).getY()<100) //si la bordure du haut de la fenêtre est percutée
+                    if(joueur.getSerpent().get(i-1).getY()<100) //si la bordure du haut de la fenêtre est percutée
                     {
-                        joueur.getSerpent().get(i).setY(650);
+                        joueur.getSerpent().get(i-1).setY(650);
                     }
                 }
                 //repaint(); //rappelle la methode paint qui redessinera les éléments avec leurs nouvelles coordonnées
                 break;
             case right:
-                for (int i = joueur.getTailleCorps()-1; i>=0; i--) //virage
+                for (int i = joueur.getTailleCorps()-1; i>0; i--) //virage
                 {
-                    joueur.getSerpent().get(i+1).setY(joueur.getSerpent().get(i).getY());//fait suivre les éléments du corps jusqu'à la tête lors d'un virage
+                    joueur.getSerpent().get(i).setY(joueur.getSerpent().get(i-1).getY());//fait suivre les éléments du corps jusqu'à la tête lors d'un virage
                 }
-                for(int i = joueur.getTailleCorps(); i>=0; i--) //boucle faisant bouger le serpent en modifiant les abscices
+                for(int i = joueur.getTailleCorps()-1; i>=0; i--) //boucle faisant bouger le serpent en modifiant les abscices
                 {
                     if(i==0) //on bouge dans un premier temps l'élément 0 du corps qui est la tête
                     {
@@ -587,11 +587,11 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
                 //repaint(); //rappelle la methode paint qui redessinera les éléments avec leurs nouvelles coordonnées
                 break;
             case down:
-                for (int i = joueur.getTailleCorps()-1; i>=0; i--) //virage
+                for (int i = joueur.getTailleCorps()-1; i>0; i--) //virage
                 {
-                    joueur.getSerpent().get(i+1).setX(joueur.getSerpent().get(i).getX());//fait suivre les éléments du corps jusqu'à la tête lors d'un virage
+                    joueur.getSerpent().get(i).setX(joueur.getSerpent().get(i-1).getX());//fait suivre les éléments du corps jusqu'à la tête lors d'un virage
                 }
-                for(int i = joueur.getTailleCorps(); i>=0; i--) //boucle faisant bouger le serpent en modifiant les ordonnées
+                for(int i = joueur.getTailleCorps()-1; i>=0; i--) //boucle faisant bouger le serpent en modifiant les ordonnées
                 {
                     if(i==0) //on bouge dans un premier temps l'élément 0 du corps qui est la tête
                     {
