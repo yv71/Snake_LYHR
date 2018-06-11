@@ -105,10 +105,39 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
     Color couleurBordTitre = Color.BLACK;
     Color couleurFond = Color.BLACK;
 
-    final JFXPanel fxPanel = new JFXPanel();
+ //   final JFXPanel fxPanel = new JFXPanel();
     private MediaView mv;
     private MediaPlayer mediaplayer;
-   
+    private int indexRessource = 1;
+    
+   public void init(Joueur j){
+       j.getTete().addTeteDroite(RessourceTeteDroite1);
+       j.getTete().addTeteDroite(RessourceTeteDroite2);
+       j.getTete().addTeteDroite(RessourceTeteDroite3);
+       j.getTete().addTeteDroite(RessourceTeteDroite4);
+       
+       
+       j.getTete().addTeteGauche(RessourceTeteGauche1);
+       j.getTete().addTeteGauche(RessourceTeteGauche2);
+       j.getTete().addTeteGauche(RessourceTeteGauche3);
+       j.getTete().addTeteGauche(RessourceTeteGauche4);
+       
+       j.getTete().addTeteHaut(RessourceTeteHaut1);
+       j.getTete().addTeteHaut(RessourceTeteHaut2);
+       j.getTete().addTeteHaut(RessourceTeteHaut3);
+       j.getTete().addTeteHaut(RessourceTeteHaut4);
+       
+       j.getTete().addTeteBas(RessourceTeteBas1);
+       j.getTete().addTeteBas(RessourceTeteBas2);
+       j.getTete().addTeteBas(RessourceTeteBas3);
+       j.getTete().addTeteBas(RessourceTeteBas4);
+       
+       
+       j.addCorps(RessourceCorps1);
+       j.addCorps(RessourceCorps2);
+       j.addCorps(RessourceCorps3);
+       j.addCorps(RessourceCorps4);
+   }
     public Jouable()
     {
         addKeyListener(this); //déclaration de l'écouteur clavier
@@ -116,6 +145,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
         setFocusTraversalKeysEnabled(false);
         
         joueur = new Joueur(this);
+        init(joueur);
         timer = new Timer(delai, this);//timer gerant la vitesse du serpent
         Lecteur.play("RessourcesSon/Musique/Disco Descent.mp3", 0.2);
         Lecteur.playVideo("RessourcesSon/Musique/DiscoDescentRL.mp4");
@@ -147,11 +177,8 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
               smiley = RessourceSmiley1;
               Imagesolo = RessourceImageSolo1;
               aliment = RessourceImageSoleil;
-              teteBas = RessourceTeteBas3;
-              teteDroite = RessourceTeteDroite3; 
-              teteHaut = RessourceTeteHaut3;
-              teteGauche = RessourceTeteGauche3; 
-              corps = RessourceCorps3;
+              indexRessource = 3; 
+             
               couleurScore = Color.YELLOW;
               couleurLabelScore = Color.CYAN;
               couleurTaille = Color.CYAN;
@@ -165,11 +192,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
               {
               smiley = null;
               aliment = RessourceAliment1; //récupère la ressource dans le chemin suivant : NomProjet/src/NomProjet/NomFichier.extension
-              teteBas = RessourceTeteBas1;
-              teteDroite = RessourceTeteDroite1; 
-              teteHaut = RessourceTeteHaut1;
-              teteGauche = RessourceTeteGauche1; 
-              corps = RessourceCorps1;
+              indexRessource = 1 ;
               couleurScore = Color.YELLOW;
               couleurLabelScore = Color.CYAN;
               couleurTaille = Color.CYAN;
@@ -188,11 +211,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
               smiley = RessourceSmiley2;
               Imagesolo = RessourceImageSolo2;
               aliment = RessourceImageSoleil2;
-              teteBas = RessourceTeteBas4;
-              teteDroite = RessourceTeteDroite4; 
-              teteHaut = RessourceTeteHaut4;
-              teteGauche = RessourceTeteGauche4; 
-              corps = RessourceCorps4;
+              indexRessource = 4 ;
               couleurScore = Color.CYAN;
               couleurLabelScore = Color.YELLOW;
               couleurTaille = Color.YELLOW;
@@ -205,11 +224,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
                   smiley = null;
               
               aliment = RessourceAliment2; //récupère la ressource dans le chemin suivant : NomProjet/src/NomProjet/NomFichier.extension
-              teteBas = RessourceTeteBas2;
-              teteDroite = RessourceTeteDroite2; 
-              teteHaut = RessourceTeteHaut2; //dd
-              teteGauche = RessourceTeteGauche2; 
-              corps = RessourceCorps2;
+              indexRessource = 2 ;
               
               couleurScore = Color.CYAN;
               couleurLabelScore = Color.YELLOW;
@@ -308,11 +323,8 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
            Lecteur.stopAllAudio();
            Lecteur.stopVideo();
            start = false;
-           teteBas= RessourceTeteBas1;
-           teteHaut = RessourceTeteHaut1;
-           teteGauche = RessourceTeteGauche1;
-           teteDroite = RessourceTeteDroite1; //récupère la ressource dans le chemin suivant : NomProjet/src/NomProjet/NomFichier.extension
-           teteDroite.paintIcon(this, g, joueur.getTete().getX(), joueur.getTete().getY()); //affiche l'image la où les coordonnées x,y sont indiqués, correspondant au coin supérieur gauche de l'image
+           indexRessource = 1; //récupère la ressource dans le chemin suivant : NomProjet/src/NomProjet/NomFichier.extension
+           joueur.getTete().getTeteDroite().get(indexRessource).paintIcon(this, g, joueur.getTete().getX(), joueur.getTete().getY()); //affiche l'image la où les coordonnées x,y sont indiqués, correspondant au coin supérieur gauche de l'image
        }
        
      
@@ -323,19 +335,19 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
                switch(joueur.getTete().getDir()) 
                { 
                    case debut:
-                       teteDroite.paintIcon(this, g, joueur.getSerpent().get(i).getX(), joueur.getSerpent().get(i).getY()); //affiche l'image la où les coordonnées x,y sont indiqués, correspondant au coin supérieur gauche de l'image
+                       joueur.getTete().getTeteDroite().get(indexRessource).paintIcon(this, g, joueur.getSerpent().get(i).getX(), joueur.getSerpent().get(i).getY()); //affiche l'image la où les coordonnées x,y sont indiqués, correspondant au coin supérieur gauche de l'image
                        break;
                    case up:
-                       teteHaut.paintIcon(this, g, joueur.getSerpent().get(i).getX(), joueur.getSerpent().get(i).getY()); //affiche l'image la où les coordonnées x,y sont indiqués, correspondant au coin supérieur gauche de l'image
+                       joueur.getTete().getTeteHaut().get(indexRessource).paintIcon(this, g, joueur.getSerpent().get(i).getX(), joueur.getSerpent().get(i).getY()); //affiche l'image la où les coordonnées x,y sont indiqués, correspondant au coin supérieur gauche de l'image
                        break;
                    case right:
-                       teteDroite.paintIcon(this, g, joueur.getSerpent().get(i).getX(), joueur.getSerpent().get(i).getY()); //affiche l'image la où les coordonnées x,y sont indiqués, correspondant au coin supérieur gauche de l'image
+                       joueur.getTete().getTeteDroite().get(indexRessource).paintIcon(this, g, joueur.getSerpent().get(i).getX(), joueur.getSerpent().get(i).getY()); //affiche l'image la où les coordonnées x,y sont indiqués, correspondant au coin supérieur gauche de l'image
                        break;
                    case left:
-                       teteGauche.paintIcon(this, g, joueur.getSerpent().get(i).getX(), joueur.getSerpent().get(i).getY()); //affiche l'image la où les coordonnées x,y sont indiqués, correspondant au coin supérieur gauche de l'image
+                       joueur.getTete().getTeteGauche().get(indexRessource).paintIcon(this, g, joueur.getSerpent().get(i).getX(), joueur.getSerpent().get(i).getY()); //affiche l'image la où les coordonnées x,y sont indiqués, correspondant au coin supérieur gauche de l'image
                        break;
                    case down:
-                       teteBas.paintIcon(this, g, joueur.getSerpent().get(i).getX(), joueur.getSerpent().get(i).getY()); //affiche l'image la où les coordonnées x,y sont indiqués, correspondant au coin supérieur gauche de l'image
+                       joueur.getTete().getTeteBas().get(indexRessource).paintIcon(this, g, joueur.getSerpent().get(i).getX(), joueur.getSerpent().get(i).getY()); //affiche l'image la où les coordonnées x,y sont indiqués, correspondant au coin supérieur gauche de l'image
                        break;
                    default:
                        throw new AssertionError(joueur.getTete().getDir().name());
@@ -345,7 +357,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
            if(i!=0) //si le serpent possède déja une tête, c'est une partie du corps qui sera affichée en supplément
            {
 
-               corps.paintIcon(this, g, joueur.getSerpent().get(i).getX(), joueur.getSerpent().get(i).getY()); //affiche l'image la où les coordonnées x,y sont indiqués, correspondant au coin supérieur gauche de l'image
+               joueur.getRessourceCorps().get(indexRessource).paintIcon(this, g, joueur.getSerpent().get(i).getX(), joueur.getSerpent().get(i).getY()); //affiche l'image la où les coordonnées x,y sont indiqués, correspondant au coin supérieur gauche de l'image
         
            }
        }
@@ -367,7 +379,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
                //affiche un rectangle qui masque smiley
                g.setColor(couleurFond);
                g.fillRect(915, 0, 600, 800);
-               joueur.getTete().getDir(debut);
+               joueur.getTete().setDir(debut);
                gameover = true;
                Lecteur.stopAllAudio();
                Lecteur.stopVideo();
@@ -410,8 +422,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
             start = true;
             joueur = new Joueur(this);
             pisteboucle = 1;
-            corps = RessourceCorps1;
-            teteDroite = RessourceTeteDroite1;
+            indexRessource= 1;
             repaint();
             }
         }

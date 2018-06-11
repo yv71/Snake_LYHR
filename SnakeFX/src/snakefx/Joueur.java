@@ -2,6 +2,7 @@ package snakefx;
 
 
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import snakefx.Direction;
 import snakefx.Jouable;
 
@@ -23,6 +24,7 @@ public class Joueur {
     private Tete tete;
     private int deplacement;
     private int score;
+    private ArrayList<ImageIcon> RessourcesCorps;
    
     
     public Joueur(Jouable jeu){
@@ -32,6 +34,7 @@ public class Joueur {
         score = 0;
         initialisation();
         tete =(Tete) serpent.get(0);
+        RessourcesCorps = new ArrayList<>();
     }
     
     private void initialisation(){
@@ -97,6 +100,14 @@ public class Joueur {
     
     public void increaseTaille(){
         tailleCorps++;
+    }
+    
+    public void addCorps(ImageIcon e){
+        this.RessourcesCorps.add(e);
+    }
+    
+    public ArrayList<ImageIcon> getRessourceCorps(){
+        return this.RessourcesCorps;
     }
 }
             

@@ -17,7 +17,7 @@ import static snakefx.Direction.*;
  * @author lk365606
  */
 public class Tete extends ObjetCorps{
-    private ArrayList<ImageIcon> tetebas;
+    private ArrayList<ImageIcon> teteBas;
     private ArrayList<ImageIcon> teteDroite;
     private ArrayList<ImageIcon> teteGauche;
     private ArrayList<ImageIcon> teteHaut;
@@ -31,14 +31,18 @@ public class Tete extends ObjetCorps{
     public Tete(int X, int Y, Joueur j) {
         super(X, Y, j);
         dir = debut;
+        teteBas = new ArrayList<>();
+        teteDroite = new ArrayList<>();
+        teteGauche = new ArrayList<>();
+        teteHaut = new ArrayList<>();
     }
 
-    public ArrayList<ImageIcon> getTetebas() {
-        return tetebas;
+    public ArrayList<ImageIcon> getTeteBas() {
+        return teteBas;
     }
 
     public void setTetebas(ArrayList<ImageIcon> tetebas) {
-        this.tetebas = tetebas;
+        this.teteBas = tetebas;
     }
 
     public ArrayList<ImageIcon> getTeteDroite() {
@@ -71,5 +75,21 @@ public class Tete extends ObjetCorps{
     
     public void setDir(Direction dir){
         this.dir=dir;
+    }
+    
+    public void addTeteHaut(ImageIcon e){
+        this.teteHaut.add(e);
+    }
+    
+    public void addTeteBas(ImageIcon e){
+        this.teteBas.add(e);
+    }
+    
+    public void addTeteDroite(ImageIcon e){
+        this.teteDroite.add(e);
+    }
+    
+    public void addTeteGauche(ImageIcon e){
+        this.teteGauche.add(e);
     }
 }
