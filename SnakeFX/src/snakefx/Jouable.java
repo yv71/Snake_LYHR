@@ -45,7 +45,6 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
      private ImageIcon smiley;
      private ImageIcon ImageTitre;
      private ImageIcon Imagesolo;
-<<<<<<< .mine
      
      private ImageIcon RessourceTeteDroite1 = new ImageIcon(Jouable.class.getResource("tete_right.png"));
      private ImageIcon RessourceTeteDroite2 = new ImageIcon(Jouable.class.getResource("tete_right2.png"));
@@ -82,43 +81,6 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
      private ImageIcon RessourceBonus3 = new ImageIcon(Jouable.class.getResource("bonus3.png"));
      private ImageIcon RessourceBonus4 = new ImageIcon(Jouable.class.getResource("bonus4.png"));
      private ImageIcon RessourceBonus5 = new ImageIcon(Jouable.class.getResource("bonus5.png"));
-=======
-     private ImageIcon RessourceTeteDroite1 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tête/tete_right.png"));
-     private ImageIcon RessourceTeteDroite2 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tête/tete_right2.png"));
-     private ImageIcon RessourceTeteGauche1 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tête/tete_left.png"));
-     private ImageIcon RessourceTeteGauche2 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tête/tete_left2.png"));
-     private ImageIcon RessourceTeteHaut1 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tête/tete_up.png"));
-     private ImageIcon RessourceTeteHaut2 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tête/tete_up2.png"));
-     private ImageIcon RessourceTeteBas1 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tête/tete_down.png"));
-     private ImageIcon RessourceTeteBas2 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tête/tete_down2.png"));
-     private ImageIcon RessourceTeteDroite3 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tête/tete_right3.png"));
-     private ImageIcon RessourceTeteDroite4 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tête/tete_right4.png"));
-     private ImageIcon RessourceTeteGauche3 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tête/tete_left3.png"));
-     private ImageIcon RessourceTeteGauche4 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tête/tete_left4.png"));
-     private ImageIcon RessourceTeteHaut3 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tête/tete_up3.png"));
-     private ImageIcon RessourceTeteHaut4 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tête/tete_up4.png"));
-     private ImageIcon RessourceTeteBas3 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tête/tete_down3.png"));
-     private ImageIcon RessourceTeteBas4 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tête/tete_down4.png"));
-     private ImageIcon RessourceCorps1 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Corps/corps.png"));
-     private ImageIcon RessourceCorps2 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Corps/corps2.png"));
-     private ImageIcon RessourceCorps3 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Corps/corps3.png"));
-     private ImageIcon RessourceCorps4 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Corps/corps4.png"));
-     private ImageIcon RessourceAliment1 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Bonus/pomme.png"));
-     private ImageIcon RessourceAliment2 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Bonus/pomme2.png"));
-     private ImageIcon RessourceSmiley1 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Bonus/smiley1.png"));
-     private ImageIcon RessourceSmiley2 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Bonus/smiley2.png"));
-     private ImageIcon RessourceImageTitre1 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Titre/titre.png"));
-     private ImageIcon RessourceImageTitre2 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Titre/titre2.png"));
-     private ImageIcon RessourceImageSolo1 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Bonus/solo1.png"));
-     private ImageIcon RessourceImageSolo2 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Bonus/solo2.png"));
-     private ImageIcon RessourceImageSoleil = new ImageIcon(Jouable.class.getResource("RessourcesImg/Bonus/soleil.png"));
-     private ImageIcon RessourceImageSoleil2 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Bonus/soleil2.png"));
-     private ImageIcon RessourceBonus1 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Bonus/bonus1.png"));
-     private ImageIcon RessourceBonus2 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Bonus/bonus2.png"));
-     private ImageIcon RessourceBonus3 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Bonus/bonus3.png"));
-     private ImageIcon RessourceBonus4 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Bonus/bonus4.png"));
-     private ImageIcon RessourceBonus5 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Bonus/bonus5.png"));
->>>>>>> .r31
      
     private Random aleatoire = new Random();
     private int posX = aleatoire.nextInt(34); //aleatoire parmi les 34 positions possible pour les abscices des aliments
