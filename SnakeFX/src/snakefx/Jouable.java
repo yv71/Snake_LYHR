@@ -375,25 +375,38 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
        {
            if (joueur.getSerpent().get(i).getX() == joueur.getTete().getX() && joueur.getSerpent().get(i).getY() == joueur.getTete().getY())
            { 
-               //affiche un rectangle qui masque smiley
+               gameover=true;
+               gameOver();
+           }
+       }
+       if(gameover)
+       {
+           //affiche un rectangle qui masque smiley
                g.setColor(couleurFond);
                g.fillRect(915, 0, 600, 800);
-               joueur.getTete().setDir(debut);
-               gameover = true;
-               Lecteur.stopAllAudio();
-               Lecteur.stopVideo();
                g.setColor(Color.white);
                g.setFont(new Font("algerian", Font.BOLD, 50)); //définition de l'écriture (police, type d'écriture, taille)
-               g.drawString("GAME OVER !", 200, 300); //affciahge de la zone de texte (chaine à afficher, coordonnées x,y de la zone de texte)
-               
+               g.drawString("GAME OVER !", 200, 300); //affciahge de la zone de texte (chaine à afficher, coordonnées x,y de la zone de texte)          
                g.setFont(new Font("algerian", Font.BOLD, 50)); //définition de l'écriture (police, type d'écriture, taille)
                g.drawString("Press SPACE To Restart !", 50, 450); //affciahge de la zone de texte (chaine à afficher, coordonnées x,y de la zone de texte)
-
-           }
+               
        }
        g.dispose();
     }  
-
+    public void gameOver()
+    {                       
+            Lecteur.stopAllAudio();
+            Lecteur.stopVideo();  
+            timer.stop();
+            boucle = 0;
+            pulsation = 0;
+            lecteurVideo = false;
+            test = false;
+            start = true;
+            joueur = new Joueur(this);
+            pisteboucle = 1;
+            indexRessource= 0;
+    }
     @Override
     public void keyPressed(KeyEvent e) //Evenement déclenché lors de l'appui sur une touche clavier (KeyListener)
     {
@@ -401,28 +414,16 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
         if((joueur.getDeplacement() == 0 && e.getKeyCode()== KeyEvent.VK_UP)|| (joueur.getDeplacement() == 0 && e.getKeyCode()== KeyEvent.VK_DOWN)||(joueur.getDeplacement() == 0 && e.getKeyCode()== KeyEvent.VK_RIGHT))
         {
             
-            Lecteur.play("RessourcesSon/Disco Descent.mp3", 0.2);
-            
-           
+            Lecteur.play("RessourcesSon/Disco Descent.mp3", 0.2); 
             timer.start();
         }
         if(e.getKeyCode()== KeyEvent.VK_SPACE)
         {
             if(gameover)
             {
-
-            timer.stop();
-            boucle = 0;
-            pulsation = 0;
-            lecteurVideo = false;
-            
-            test = false;
-            gameover = false;
-            start = true;
-            joueur = new Joueur(this);
-            pisteboucle = 1;
-            indexRessource= 0;
-            repaint();
+                gameOver();
+                gameover = false;           
+                repaint();
             }
         }
         if(e.getKeyCode() == KeyEvent.VK_RIGHT) //Si flèche droite appuyée        
@@ -535,10 +536,17 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
                     }
                     if(joueur.getSerpent().get(i-1).getY()<100) //si la bordure du haut de la fenêtre est percutée
                     {
-                        joueur.getSerpent().get(i-1).setY(650);
+                        if(pulsation >= 160 && pulsation <= 207)
+                        {
+                            joueur.getSerpent().get(i).setY(650);
+                        }
+                        else
+                        {                       
+                            gameover = true;
+                            gameOver();
+                        }
                     }
                 }
-                //repaint(); //rappelle la methode paint qui redessinera les éléments avec leurs nouvelles coordonnées
                 break;
             case right:
                 for (int i = joueur.getTailleCorps()-1; i>0; i--) //virage
@@ -557,11 +565,19 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
                     }
                     if(joueur.getSerpent().get(i).getX()<100) //si la bordure droite de la fenêtre est percutée
                     {
-                        joueur.getSerpent().get(i).setX(25);
+                        
+                        if(pulsation >= 160 && pulsation <= 207)
+                        {
+                            joueur.getSerpent().get(i).setX(25);
+                        }
+                        else
+                        {                       
+                            gameover = true;
+                            gameOver();
+                        }
                     }
                 }
            
-                //repaint(); //rappelle la methode paint qui redessinera les éléments avec leurs nouvelles coordonnées
                 break;
             case left:
                 for (int i = joueur.getTailleCorps()-1; i>=0; i--) //virage
@@ -580,10 +596,17 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
                     }
                     if(joueur.getSerpent().get(i).getX()<25) //si la bordure gauche de la fenêtre est percutée
                     {
-                        joueur.getSerpent().get(i).setX(850);
+                        if(pulsation >= 160 && pulsation <= 207)
+                        {
+                            joueur.getSerpent().get(i).setX(850);
+                        }
+                        else
+                        {                       
+                            gameover = true;
+                            gameOver();
+                        }
                     }
                 }
-                //repaint(); //rappelle la methode paint qui redessinera les éléments avec leurs nouvelles coordonnées
                 break;
             case down:
                 for (int i = joueur.getTailleCorps()-1; i>0; i--) //virage
@@ -602,10 +625,17 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
                     }
                     if(joueur.getSerpent().get(i).getY()>650) //si la bordure du bas de la fenêtre est percutée
                     {
-                        joueur.getSerpent().get(i).setY(100);
+                        if(pulsation >= 160 && pulsation <= 207)
+                        {
+                            joueur.getSerpent().get(i).setY(100);
+                        }
+                        else
+                        {                       
+                            gameover = true;
+                            gameOver();
+                        }
                     }
                 }
-                //repaint(); //rappelle la methode paint qui redessinera les éléments avec leurs nouvelles coordonnées
                 break;
             default:
                 throw new AssertionError(joueur.getTete().getDir().name());
