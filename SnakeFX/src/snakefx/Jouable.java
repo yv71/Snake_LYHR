@@ -105,7 +105,6 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
     Color couleurBordTitre = Color.BLACK;
     Color couleurFond = Color.BLACK;
 
- //   final JFXPanel fxPanel = new JFXPanel();
     private MediaView mv;
     private MediaPlayer mediaplayer;
     private int indexRessource = 0;
