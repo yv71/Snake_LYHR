@@ -169,7 +169,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
               }
               if(pulsation > 207)
               {   
-                Lecteur.stopVideo();//test allô
+                Lecteur.stopVideo();
               }  
               if(pulsation >= 160 && pulsation <= 207)
               {
