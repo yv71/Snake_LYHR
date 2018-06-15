@@ -29,6 +29,7 @@ public class Joueur {
     
     public Joueur(Jouable jeu){
         serpent = new ArrayList<>();
+        
         tailleCorps = 3;
         deplacement = 0;
         score = 0;
@@ -47,7 +48,6 @@ public class Joueur {
         int x = serpent.get(serpent.size()-1).getX();
         int y = serpent.get(serpent.size()-1).getY();
         serpent.add(new PartieCorps(x,y,this));
-        this.increaseTaille();
     }
 
     public ArrayList<ObjetCorps> getSerpent() {
@@ -56,14 +56,6 @@ public class Joueur {
 
     public void setSerpent(ArrayList<ObjetCorps> serpent) {
         this.serpent = serpent;
-    }
-
-    public int getTailleCorps() {
-        return tailleCorps;
-    }
-
-    public void setTailleCorps(int tailleCorps) {
-        this.tailleCorps = tailleCorps;
     }
 
     public Tete getTete() {
@@ -98,9 +90,7 @@ public class Joueur {
         score +=i;
     }
     
-    public void increaseTaille(){
-        tailleCorps++;
-    }
+
     
     public void addCorps(ImageIcon e){
         this.RessourcesCorps.add(e);
