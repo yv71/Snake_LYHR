@@ -29,7 +29,7 @@ import javax.swing.Timer;
 import static snakefx.Direction.*;
 
 /**
- *
+ * Classe gérant les éléments du jeu, les évènements qui leurs sont liés ainsi que leur affichage.
  * @author remil
  */
 public class Jouable extends JPanel implements KeyListener, ActionListener{
@@ -78,12 +78,6 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
     private ImageIcon RessourceBonus4 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Bonus/bonus4.png"));
     private ImageIcon RessourceBonus5 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Bonus/bonus5.png"));
      
-    private Random aleatoire = new Random();
-    //aleatoire parmi les 34 positions possible pour les abscices des aliments
-    private int posX = aleatoire.nextInt(33)*25+25; 
-    //aleatoire parmi les 23 positions possible pour les ordonnées des aliments
-    private int posY = aleatoire.nextInt(22)*25+100; 
-    
     private Joueur joueur;
     private Aliment aliment;
     private Timer timer;
@@ -107,6 +101,11 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
     private int indexRessource = 0;
     private int indexRessourceAliment = 0;
     
+    /**
+     * Initialises les ressources images du joueur et de l'aliment.
+     * @param j correspond au joueur.
+     * @param a correspond à l'aliment.
+     */
     public void init(Joueur j, Aliment a){
         
         a.getRessourcesAliment().add(RessourceAliment1);
@@ -140,6 +139,9 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
         j.addCorps(RessourceCorps4);
     }
    
+    /**
+     * Constructeur de jouable, créant un joueur( le serpent) et un premier aliment, lançant musique et vidéo ainsi que le timer et initalisant les ressources du joueur et de l'aliment.
+     */
     public Jouable()
     {
         addKeyListener(this); //déclaration de l'écouteur clavier
@@ -154,7 +156,11 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
         Lecteur.playVideo("RessourcesSon/DiscoDescentRL.mp4");
     }
     
-    public void paint(Graphics g) //Méthode chargée de définir l'interface graphique
+    /**
+     * Définit l'interface graphique.
+     * @param g correspond à la zone graphique.
+     */
+    public void paint(Graphics g)
     {
         //définition arriere plan de la fenetre
         g.setColor(couleurFond);
@@ -355,6 +361,10 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
         }
         g.dispose();
     }  
+    
+    /**
+     * Permet de tout arrêter et remet tout à 0.
+     */
     public void gameOver()
     {             
         Lecteur.stopAllAudio();
@@ -480,21 +490,28 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
         repaint(); //rappelle la methode paint qui redessinera les éléments avec leurs nouvelles coordonnées
     }
     
+    /**
+     * Permet d'arrêter le timer du jeu.
+     */
     public void stopTimer()
     {
         timer.stop();
     }
     
-     @Override
+    @Override
     public void keyReleased(KeyEvent e) {
         //throw new UnsupportedOperationException(""); //To change body of generated methods, choose Tools | Templates.
     }
     
-     @Override
+    @Override
     public void keyTyped(KeyEvent e) {
         //throw new UnsupportedOperationException(""); //To change body of generated methods, choose Tools | Templates.
     }
     
+    /**
+     * Si le joueur percute un mur et qu'il se trouve en phase "bonus" (pulsaton entre 160 et 207), le serpent peut traverser le mur, sinon, le joueur perd.
+     * @param index correspond à un index qui permettra de localiser une partie du corps du serpent et de le déplacer.
+     */
     public void effetCollisionMur(int index){
         if(pulsation >= 160 && pulsation <= 207)
         {
@@ -521,6 +538,9 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
         }
     }
     
+    /**
+     * Si le joueur percute un aliment (soleil ou pomme), le serpent sera composé d'un nouvel élément, son score sera incrémenté de la valeur de l'aliment, un aliment sera disposé de manière aléatoire et si l'aliment est généré sur le corps du serpent, on change sa position.
+     */
     public void effetCollisionAliment(){
         joueur.ajouterPartieCorps(); //la taille du serpent augmente
         joueur.addScore(aliment.getPoint()); //le score augmente
@@ -530,10 +550,17 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
         }
     }
     
+    /**
+     * Si le joueur se percute lui-même, la partie est perdue.
+     */
     public void effetCollisionSnake(){
         gameover=true;
     }
     
+    /**
+     * Vérifie si le joueur (la tête du serpent) percute un aliment ou non.
+     * @return vrai si le joueur percute l'aliment et faux dans le cas contraire.
+     */
     public boolean collisionAliment(){
         boolean retour = false;
         if (joueur.getTete().getX() == aliment.getX() && joueur.getTete().getY()==aliment.getY()){
@@ -542,6 +569,10 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
         return retour;
     }
     
+    /**
+     * Vérifie si le joueur se percute lui-même.
+     * @return vrai si il se percute et faux dans le cas contraire.
+     */
     public boolean collisionSnake(){
         boolean retour = false;
         for(int i = 1; i<joueur.getSerpent().size();i++){
@@ -552,6 +583,10 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
         return retour;
     }
     
+    /**
+     * Vérifie si le corps du serpent a percuté un aliment.
+     * @return vrai si le corps du serpent a percuté un aliment et faux dans le cas contraire.
+     */
     public boolean collisionCorpsFruit(){
         boolean retour = false;
         for(int i = 1; i<joueur.getSerpent().size();i++){
@@ -561,7 +596,12 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
         }
         return retour;
     }
-     
+    
+    /**
+     * Vérifie si le joueur percute un mur que ce soit le droit, le gauche, le bas ou le haut).
+     * @param index correspond à un index qui permettra de localiser une partie du corps du serpent.
+     * @return vrai si le joueur percute un mur et faux dans le cas contraire.
+     */
     public boolean collisionMur(int index)
     {
         boolean retour = false;
@@ -571,6 +611,11 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
         }
         return retour;
     }
+    
+    /**
+     * Permet d'afficher l'écran de partie perdue.
+     * @param g correspond à une zone graphique.
+     */
     public void affichageGameOver(Graphics g){
                 g.setColor(couleurFond);
                 g.fillRect(915, 0, 600, 800);
@@ -582,6 +627,10 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
                 gameOver();
     }
     
+    /**
+     * Permet de diriger le corps du serpent selon la direction de la tête de ce dernier.
+     * @param j correspond au joueur, donc au serpent.
+     */
     public void direction(Joueur j){
         switch(joueur.getTete().getDir())
         {       
@@ -675,7 +724,11 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
                 //throw new AssertionError(joueur.getTete().getDir().name());
         }
     } 
-        
+    
+    /**
+     * Permet d'afficher l'écran de jeu.
+     * @param g correspond à la zone graphique.
+     */
     public void dessineInterface(Graphics g){
                     //définition des bords de l'image titre (dessine un rectangle)
         g.setColor(couleurBordTitre);

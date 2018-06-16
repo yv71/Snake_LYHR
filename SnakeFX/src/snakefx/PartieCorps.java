@@ -10,12 +10,17 @@ import javax.swing.ImageIcon;
  */
 
 /**
- *
+ * Classe correspondant à une partie du corps avec une abscisse et une ordonnée.
  * @author lk365606
  */
 public class PartieCorps extends ObjetCorps{
-    private ImageIcon corps;
 
+    /**
+     * Constructeur de la classe.
+     * @param X correspond à l'abscisse de la partie du corps.
+     * @param Y correspond à l'ordonnée de la partie du corps.
+     * @param j correspond au joueur auquel la partie du corps est affiliée.
+     */
     public PartieCorps(int X, int Y, Joueur j) {
         super(X, Y, j);
     }

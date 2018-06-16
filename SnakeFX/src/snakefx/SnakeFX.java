@@ -30,7 +30,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- *
+ * Classe gérant le lancement du jeu et sa fermeture..
  * @author remil
  */
 public class SnakeFX extends Application {
@@ -45,13 +45,9 @@ public class SnakeFX extends Application {
         swingNode.setTranslateX(0);
         swingNode.setTranslateY(0);
         root.getChildren().add(swingNode);
-         
-      
        
         root.getChildren().add(Lecteur.getMediaView());
-        
-       
-        
+                
         Scene scene = new Scene(root, 1200, 680);  
         primaryStage.setTitle("Snake"); 
         primaryStage.setResizable(false);

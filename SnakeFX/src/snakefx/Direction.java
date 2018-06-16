@@ -6,7 +6,7 @@
 package snakefx;
 
 /**
- *
+ * Correspond à une énumération de directions pour la tête du serpent.
  * @author lk365606
  */
 public enum Direction {
