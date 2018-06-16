@@ -35,11 +35,7 @@ import static snakefx.Direction.*;
 public class Jouable extends JPanel implements KeyListener, ActionListener{
     private boolean start = true;
     private boolean gameover = false;
-    
-    //tableaux représentants les aliments (une image faisant 25px explique que les éléments des tableaux soit des multiples de 25)
-    private int[]alimentposX = {25, 50, 75, 100, 125, 150, 175, 200, 225, 250, 275, 300, 325, 350, 375, 400, 425, 450, 475, 500, 525, 550, 575, 600, 625, 650, 675, 700, 725, 750, 775, 800, 825, 850};
-    private int[]alimentposY = {100, 125, 150, 175, 200, 225, 250, 275, 300, 325, 350, 375, 400, 425, 450, 475, 500, 525, 550, 575, 600, 625, 650};
-         
+ 
     //private ImageIcon aliment;
      
     private ImageIcon smiley;
@@ -83,11 +79,10 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
     private ImageIcon RessourceBonus5 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Bonus/bonus5.png"));
      
     private Random aleatoire = new Random();
-    //private int posX = aleatoire.nextInt(34); //aleatoire parmi les 34 positions possible pour les abscices des aliments
+    //aleatoire parmi les 34 positions possible pour les abscices des aliments
     private int posX = aleatoire.nextInt(33)*25+25; 
-    //private int posY = aleatoire.nextInt(23); //aleatoire parmi les 23 positions possible pour les ordonnées des aliments
+    //aleatoire parmi les 23 positions possible pour les ordonnées des aliments
     private int posY = aleatoire.nextInt(22)*25+100; 
-    //int point = 50;
     
     private Joueur joueur;
     private Aliment aliment;
@@ -184,7 +179,6 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
               {
                     smiley = RessourceSmiley1;
                     Imagesolo = RessourceImageSolo1;
-                    //aliment = RessourceImageSoleil;
                     indexRessourceAliment=2;
                     indexRessource = 2; 
 
@@ -201,7 +195,6 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
                 else
                 {
                     smiley = null;
-                    //aliment = RessourceAliment1; //récupère la ressource dans le chemin suivant : NomProjet/src/NomProjet/NomFichier.extension
                     indexRessourceAliment = 0;
                     indexRessource = 0 ;
                     couleurScore = Color.YELLOW;
@@ -211,7 +204,6 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
                     couleurBordJeu = Color.PINK;
                     couleurBordTitre = Color.GREEN;
                 }
-
         }
         else
         if(boucle%520 == 0)
@@ -221,7 +213,6 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
             {
                 smiley = RessourceSmiley2;
                 Imagesolo = RessourceImageSolo2;
-                //aliment = RessourceImageSoleil2;
                 indexRessourceAliment = 3;
                 indexRessource = 3 ;
                 couleurScore = Color.CYAN;
@@ -234,8 +225,6 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
             else 
             {
                 smiley = null;
-              
-                //aliment = RessourceAliment2; //récupère la ressource dans le chemin suivant : NomProjet/src/NomProjet/NomFichier.extension
                 indexRessourceAliment = 1;
                 indexRessource = 1 ;
 
@@ -311,7 +300,6 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
            start = false;
            indexRessource = 0; //récupère la ressource dans le chemin suivant : NomProjet/src/NomProjet/NomFichier.extension
            indexRessourceAliment=0;
-           //joueur.getTete().getTeteDroite().get(indexRessource).paintIcon(this, g, joueur.getTete().getX(), joueur.getTete().getY()); //affiche l'image la où les coordonnées x,y sont indiqués, correspondant au coin supérieur gauche de l'image
         }
        
      
@@ -350,19 +338,14 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
         
         if(this.collisionAliment()) //si les abscices ET ordonnées d'un aliment et de la tête correspondent le serpent se nourrit de l'aliment
         {
-            joueur.ajouterPartieCorps(); //la taille du serpent augmente
-            joueur.addScore(aliment.getPoint()); //le score augmente
-            aliment.placementAleatoire(); //génération d'une nouvelle position parmis les 34 positions possibles en abscisses et les 23 posistions possibles en ordonnées
-            while(this.collisionCorpsFruit()){ //si le fruit est généré sur une partie du corps du serpent, on change ses coordonnées
-                aliment.placementAleatoire();
-            }
+            this.effetCollisionAliment();
             
         }
         aliment.getRessourcesAliment().get(indexRessourceAliment).paintIcon(this, g, aliment.getX(), aliment.getY()); //affiche l'image la où les coordonnées x,y sont indiqués, correspondant au coin supérieur gauche de l'image     
         
         if (this.collisionSnake())//on verifie si la tête du snake percute un élément du corps
         { 
-           gameover=true;
+           this.effetCollisionSnake();
         }
         
         if(gameover)
@@ -512,6 +495,45 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
         //throw new UnsupportedOperationException(""); //To change body of generated methods, choose Tools | Templates.
     }
     
+    public void effetCollisionMur(int index){
+        if(pulsation >= 160 && pulsation <= 207)
+        {
+            switch(joueur.getTete().getDir())
+            {
+                case up :
+                    joueur.getSerpent().get(index).setY(650);
+                    break;
+                case right :
+                    joueur.getSerpent().get(index).setX(25);
+                    break;
+                case left :
+                    joueur.getSerpent().get(index).setX(850);
+                    break;
+                case down :
+                    joueur.getSerpent().get(index).setY(100);
+                    break;
+                default: 
+            }
+        }
+        else
+        {
+            gameover = true;
+        }
+    }
+    
+    public void effetCollisionAliment(){
+        joueur.ajouterPartieCorps(); //la taille du serpent augmente
+        joueur.addScore(aliment.getPoint()); //le score augmente
+        aliment.placementAleatoire(); //génération d'une nouvelle position parmis les 34 positions possibles en abscisses et les 23 posistions possibles en ordonnées
+        while(this.collisionCorpsFruit()){ //si le fruit est généré sur une partie du corps du serpent, on change ses coordonnées
+            aliment.placementAleatoire();
+        }
+    }
+    
+    public void effetCollisionSnake(){
+        gameover=true;
+    }
+    
     public boolean collisionAliment(){
         boolean retour = false;
         if (joueur.getTete().getX() == aliment.getX() && joueur.getTete().getY()==aliment.getY()){
@@ -539,7 +561,16 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
         }
         return retour;
     }
-    
+     
+    public boolean collisionMur(int index)
+    {
+        boolean retour = false;
+        if((joueur.getSerpent().get(index).getY()<100)||(joueur.getSerpent().get(index).getX()>850)||(joueur.getSerpent().get(index).getX()<25)||(joueur.getSerpent().get(index).getY()>650))
+        {
+            retour = true;
+        }
+        return retour;
+    }
     public void affichageGameOver(Graphics g){
                 g.setColor(couleurFond);
                 g.fillRect(915, 0, 600, 800);
@@ -569,16 +600,9 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
                     {
                         joueur.getSerpent().get(i).setY(joueur.getSerpent().get(i-1).getY()); //une fois la tête bougée, l'élément suivant viendra prendre sa place et ainsi s'acroché a la tête; opération réalisée pour tout le reste du corps
                     }
-                    if(joueur.getSerpent().get(i).getY()<100) //si la bordure du haut de la fenêtre est percutée
+                    if(this.collisionMur(i))
                     {
-                        if(pulsation >= 160 && pulsation <= 207)
-                        {
-                            joueur.getSerpent().get(i).setY(650);
-                        }
-                        else
-                        {                       
-                            gameover = true;
-                        }
+                        this.effetCollisionMur(i);
                     }
                 }
                 break;
@@ -597,17 +621,9 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
                     {
                         joueur.getSerpent().get(i).setX(joueur.getSerpent().get(i-1).getX()); //une fois la tête bougée, l'élément suivant viendra prendre sa place et ainsi s'acroché a la tête; opération réalisée pour tout le reste du corps
                     }
-                    if(joueur.getSerpent().get(i).getX()>850) //si la bordure droite de la fenêtre est percutée
+                    if(this.collisionMur(i))
                     {
-                        
-                        if(pulsation >= 160 && pulsation <= 207)
-                        {
-                            joueur.getSerpent().get(i).setX(25);
-                        }
-                        else
-                        {                       
-                            gameover = true;
-                        }
+                        this.effetCollisionMur(i);
                     }
                 }
            
@@ -627,16 +643,9 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
                     {
                         joueur.getSerpent().get(i).setX(joueur.getSerpent().get(i-1).getX()); //une fois la tête bougée, l'élément suivant viendra prendre sa place et ainsi s'acroché a la tête; opération réalisée pour tout le reste du corps
                     }
-                    if(joueur.getSerpent().get(i).getX()<25) //si la bordure gauche de la fenêtre est percutée
+                    if (this.collisionMur(i))
                     {
-                        if(pulsation >= 160 && pulsation <= 207)
-                        {
-                            joueur.getSerpent().get(i).setX(850);
-                        }
-                        else
-                        {                       
-                            gameover = true;
-                        }
+                        this.effetCollisionMur(i);
                     }
                 }
                 break;
@@ -655,26 +664,19 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
                     {
                         joueur.getSerpent().get(i).setY(joueur.getSerpent().get(i-1).getY());; //une fois la tête bougée, l'élément suivant viendra prendre sa place et ainsi s'acroché a la tête; opération réalisée pour tout le reste du corps
                     }
-                    if(joueur.getSerpent().get(i).getY()>650) //si la bordure du bas de la fenêtre est percutée
+
+                    if(this.collisionMur(i))
                     {
-                        if(pulsation >= 160 && pulsation <= 207)
-                        {
-                            joueur.getSerpent().get(i).setY(100);
-                        }
-                        else
-                        {                       
-                            gameover = true;
-                        }
+                        this.effetCollisionMur(i);
                     }
                 }
                 break;
             default:
                 //throw new AssertionError(joueur.getTete().getDir().name());
         }
-    }
+    } 
         
-        
-        public void dessineInterface(Graphics g){
+    public void dessineInterface(Graphics g){
                     //définition des bords de l'image titre (dessine un rectangle)
         g.setColor(couleurBordTitre);
         g.drawRect(24, 20, 851, 55); //coordonnées x,y,largeur,longueur
@@ -703,5 +705,5 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
         //définition de l'arrière plan du jeu
         g.setColor(Color.BLACK);
         g.fillRect(25, 100, 850, 575);//coordonnées x,y,largeur,longueur        
-        }
+    }
 }
