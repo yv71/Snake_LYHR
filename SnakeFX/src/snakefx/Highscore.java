@@ -12,49 +12,98 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
  * @author Beelzed
  */
 public class Highscore implements Serializable{
-    private int score;
     private String nomJoueur;
-    private int numHighscore;
+    private String nomJoueur2;
+    private String nomJoueur3;
     
-    public Highscore(int score, String nomJoueur, int numHighscore){
-        this.score = score;
-        this.nomJoueur = nomJoueur;
-        this.numHighscore = numHighscore;
+    private int highscore1;
+    private int highscore2;
+    private int highscore3;
+    
+    
+    public Highscore(){
+        
+        
     }
     
     public void saveMe() throws FileNotFoundException, IOException{
-        FileOutputStream file = new FileOutputStream("Higschore"+numHighscore+".dat");
+        FileOutputStream file = new FileOutputStream("Highscore.dat");
         ObjectOutputStream os = new ObjectOutputStream(file);
         os.writeObject(this);
         os.flush();
         os.close();       
     }
     
-    public void loadMe(String nomFichier) throws FileNotFoundException, IOException, ClassNotFoundException{
-        FileInputStream file = new FileInputStream(nomFichier+".dat");
+    public void loadMe() throws FileNotFoundException, IOException, ClassNotFoundException{
+        FileInputStream file = new FileInputStream("Highscore.dat");
         ObjectInputStream os = new ObjectInputStream(file);
-        Highscore load = (Highscore) os.readObject();     
-        this.score = load.getScore();
+        Highscore load = (Highscore) os.readObject();    
         this.nomJoueur = load.getNomJoueur();
-        this.numHighscore = load.getNumHighscore();
+        this.highscore1 = load.getHighscore1();
+        this.nomJoueur2 = load.getNomJoueur2();
+        this.highscore2 = load.getHighscore2();
+        this.nomJoueur3 = load.getNomJoueur3();
+        this.highscore3 = load.getHighscore3();
+       
     }
 
-    public int getScore() {
-        return score;
-    }
 
     public String getNomJoueur() {
         return nomJoueur;
     }
 
-    public int getNumHighscore() {
-        return numHighscore;
-    }    
+    public void setNomJoueur(String nomJoueur){
+        this.nomJoueur = nomJoueur;
+    }
+    public String getNomJoueur2() {
+        return nomJoueur2;
+    }
+
+    public void setNomJoueur2(String nomJoueur2) {
+        this.nomJoueur2 = nomJoueur2;
+    }
+
+    public String getNomJoueur3() {
+        return nomJoueur3;
+    }
+
+    public void setNomJoueur3(String nomJoueur3) {
+        this.nomJoueur3 = nomJoueur3;
+    }
+
+    public int getHighscore1() {
+        return highscore1;
+    }
+
+    public void setHighscore1(int highscore1) {
+        this.highscore1 = highscore1;
+    }
+
+    public int getHighscore2() {
+        return highscore2;
+    }
+
+    public void setHighscore2(int highscore2) {
+        this.highscore2 = highscore2;
+    }
+
+    public int getHighscore3() {
+        return highscore3;
+    }
+
+    public void setHighscore3(int highscore3) {
+        this.highscore3 = highscore3;
+    }
+    
+    
+ 
+    
     
 }

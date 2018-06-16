@@ -12,6 +12,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import static java.lang.Thread.sleep;
 import java.net.URL;
 import java.util.Random;
 import java.util.logging.Level;
@@ -27,6 +32,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import static snakefx.Direction.*;
+import snakefx.Highscore;
 
 /**
  * Classe gérant les éléments du jeu, les évènements qui leurs sont liés ainsi que leur affichage.
@@ -356,17 +362,30 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
         
         if(gameover)
         {
-            //affiche un rectangle qui masque smiley
-            this.affichageGameOver(g);
+            try {
+                //affiche un rectangle qui masque smiley
+                this.affichageGameOver(g, joueur);
+            } catch (IOException ex) {
+               // Logger.getLogger(Jouable.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                //Logger.getLogger(Jouable.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InterruptedException ex) {
+               // Logger.getLogger(Jouable.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         g.dispose();
     }  
     
     /**
      * Permet de tout arrêter et remet tout à 0.
+     * @throws java.io.IOException
+     * @throws java.io.FileNotFoundException
+     * @throws java.lang.ClassNotFoundException
      */
-    public void gameOver()
+    public void gameOver(Joueur j) throws IOException, FileNotFoundException, ClassNotFoundException, InterruptedException
     {             
+
+
         Lecteur.stopAllAudio();
         Lecteur.stopVideo();  
         timer.stop();
@@ -377,7 +396,59 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
         start = true;
         joueur = new Joueur(this);
         init(joueur,aliment);
-        pisteboucle = 1;     
+        pisteboucle = 1;    
+        
+        Highscore highscore = new Highscore();
+        highscore.loadMe();
+        this.highscore(highscore, j);
+        
+        
+        
+
+    }
+    
+    public void highscore(Highscore highscore, Joueur j) throws InterruptedException{
+        System.out.println("a");
+        if (highscore.getHighscore1()<j.getScore()){
+            highscore.setHighscore3(highscore.getHighscore2());
+            highscore.setNomJoueur3(highscore.getNomJoueur2());
+            highscore.setHighscore2(highscore.getHighscore1());
+            highscore.setNomJoueur2(highscore.getNomJoueur());
+            highscore.setHighscore1(j.getScore());
+            HigshcorePanel test = new HigshcorePanel();
+            test.setVisible(true);    
+            String nomJoueur = test.getNomJoueur();
+            while(nomJoueur == null){
+                nomJoueur = test.getNomJoueur();
+                sleep(125);
+            }
+            highscore.setNomJoueur(nomJoueur);
+        }
+        else if(highscore.getHighscore2()<j.getScore()){
+            
+            highscore.setHighscore3(highscore.getHighscore2());
+            highscore.setNomJoueur3(highscore.getNomJoueur2());
+            highscore.setHighscore2(j.getScore());
+            HigshcorePanel test = new HigshcorePanel();
+            test.setVisible(true);    
+            String nomJoueur2 = test.getNomJoueur(); 
+            while(nomJoueur2 == null){
+                nomJoueur2 = test.getNomJoueur();
+                sleep(125);
+            }
+            highscore.setNomJoueur2(nomJoueur2);
+        }
+        else if(highscore.getHighscore3() < j.getScore()){
+            highscore.setHighscore3(j.getScore());
+            HigshcorePanel test = new HigshcorePanel();
+            test.setVisible(true);    
+            String nomJoueur3 = test.getNomJoueur(); 
+            while(nomJoueur3 == null){
+                nomJoueur3 = test.getNomJoueur();
+                sleep(125);
+            }
+            highscore.setNomJoueur3(nomJoueur3);
+        }
     }
     
     @Override
@@ -616,7 +687,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
      * Permet d'afficher l'écran de partie perdue.
      * @param g correspond à une zone graphique.
      */
-    public void affichageGameOver(Graphics g){
+    public void affichageGameOver(Graphics g, Joueur j) throws IOException, FileNotFoundException, ClassNotFoundException, InterruptedException{
                 g.setColor(couleurFond);
                 g.fillRect(915, 0, 600, 800);
                 g.setColor(Color.white);
@@ -624,7 +695,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
                 g.drawString("GAME OVER !", 200, 300); //affciahge de la zone de texte (chaine à afficher, coordonnées x,y de la zone de texte)          
                 g.setFont(new Font("algerian", Font.BOLD, 50)); //définition de l'écriture (police, type d'écriture, taille)
                 g.drawString("Press SPACE To Restart !", 50, 450); //affciahge de la zone de texte (chaine à afficher, coordonnées x,y de la zone de texte)
-                gameOver();
+                this.gameOver(j);
     }
     
     /**
