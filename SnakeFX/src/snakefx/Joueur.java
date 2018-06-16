@@ -24,9 +24,8 @@ public class Joueur {
     private Tete tete;
     private int deplacement;
     private int score;
-    private ArrayList<ImageIcon> RessourcesCorps;
-   
-    
+    private ArrayList<ImageIcon> ressourcesCorps;
+       
     public Joueur(Jouable jeu){
         serpent = new ArrayList<>();
         
@@ -35,7 +34,7 @@ public class Joueur {
         score = 0;
         initialisation();
         tete =(Tete) serpent.get(0);
-        RessourcesCorps = new ArrayList<>();
+        ressourcesCorps = new ArrayList<>();
     }
     
     private void initialisation(){
@@ -89,15 +88,13 @@ public class Joueur {
     public void addScore(int i){
         score +=i;
     }
-    
 
-    
     public void addCorps(ImageIcon e){
-        this.RessourcesCorps.add(e);
+        this.ressourcesCorps.add(e);
     }
     
     public ArrayList<ImageIcon> getRessourceCorps(){
-        return this.RessourcesCorps;
+        return this.ressourcesCorps;
     }
 }
             

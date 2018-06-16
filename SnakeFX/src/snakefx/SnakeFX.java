@@ -38,7 +38,7 @@ public class SnakeFX extends Application {
     @Override
     public void start(Stage primaryStage) {
         StackPane root = new StackPane();
-         Lecteur.setupMediaView(435, -235, 300, 300);
+        Lecteur.setupMediaView(435, -235, 300, 300);
         final SwingNode swingNode = new SwingNode();    
         Jouable jeu = new Jouable();
         swingNode.setContent(jeu);
@@ -61,9 +61,9 @@ public class SnakeFX extends Application {
         primaryStage.setY(10);
         primaryStage.show();
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-          public void handle(WindowEvent we) {
-              jeu.stopTimer();
-          }
+            public void handle(WindowEvent we) {
+                jeu.stopTimer();
+            }
       });        
         
     }
