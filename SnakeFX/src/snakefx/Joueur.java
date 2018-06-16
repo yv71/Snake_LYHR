@@ -24,6 +24,7 @@ public class Joueur {
     private Tete tete;
     private int deplacement;
     private int score;
+    
     private ArrayList<ImageIcon> ressourcesCorps;
        
     public Joueur(Jouable jeu){

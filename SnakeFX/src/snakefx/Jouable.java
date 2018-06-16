@@ -151,7 +151,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
         setFocusable(true); //Garde le focus sur l'ecran de jeu
         setFocusTraversalKeysEnabled(false);
         
-        aliment = new Aliment(this,posX,posY);
+        aliment = new Aliment(this);
         joueur = new Joueur(this);
         init(joueur,aliment);
         timer = new Timer(delai, this);//timer gerant la vitesse du serpent
@@ -302,35 +302,8 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
                
         }
         ImageTitre.paintIcon(this, g, 25, 21); //affiche l'image la où les coordonnées x,y sont indiqués, correspondant au coin supérieur gauche de l'image
+        this.dessineInterface(g);
 
-        //définition des bords de l'image titre (dessine un rectangle)
-        g.setColor(couleurBordTitre);
-        g.drawRect(24, 20, 851, 55); //coordonnées x,y,largeur,longueur
-
-
-        //définition des bords du jeu
-        g.setColor(couleurBordJeu);
-        g.drawRect(24, 99, 851, 576); //coordonnées x,y,largeur,longueur
-
-        //définition de la zone de texte du score
-        g.setColor(couleurScore);
-        g.setFont(new Font("arial", Font.PLAIN,14)); //définition de l'écriture (police, type d'écriture, taille)
-        g.drawString("Score : ", 780, 40); //affciahge de la zone de texte (chaine à afficher, coordonnées x,y de la zone de texte)
-        g.setColor(couleurLabelScore);
-        g.setFont(new Font("arial", Font.PLAIN,14)); //définition de l'écriture (police, type d'écriture, taille)
-        g.drawString("" +joueur.getScore(), 830, 40); //affciahge de la zone de texte (chaine à afficher, coordonnées x,y de la zone de texte)
-
-        //définition de la zone de texte de la taille du serpent
-        g.setColor(couleurTaille);
-        g.setFont(new Font("arial", Font.PLAIN,14)); //définition de l'écriture (police, type d'écriture, taille)
-        g.drawString("Taille : ", 783, 60); //affciahge de la zone de texte (chaine à afficher, coordonnées x,y de la zone de texte)
-        g.setColor(couleurLabelTaille);
-        g.setFont(new Font("arial", Font.PLAIN,14)); //définition de l'écriture (police, type d'écriture, taille)
-        g.drawString("" +joueur.getSerpent().size(), 830, 60); //affciahge de la zone de texte (chaine à afficher, coordonnées x,y de la zone de texte)
-
-        //définition de l'arrière plan du jeu
-        g.setColor(Color.BLACK);
-        g.fillRect(25, 100, 850, 575);//coordonnées x,y,largeur,longueur
         if(start)
         {
            Lecteur.stopAllAudio();
@@ -370,43 +343,32 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
 
             if(i!=0) //si le serpent possède déja une tête, c'est une partie du corps qui sera affichée en supplément
             {
-
                 joueur.getRessourceCorps().get(indexRessource).paintIcon(this, g, joueur.getSerpent().get(i).getX(), joueur.getSerpent().get(i).getY()); //affiche l'image la où les coordonnées x,y sont indiqués, correspondant au coin supérieur gauche de l'image
             }
         }
   
-       //if(alimentposX[posX] == joueur.getTete().getX() && alimentposY[posY] == joueur.getTete().getY()) //si les abscices ET ordonnées d'un aliment et de la tête correspondent le serpent se nourrit de l'aliment
-        if(aliment.getX() == joueur.getTete().getX() && aliment.getY() == joueur.getTete().getY())
+        
+        if(this.collisionAliment()) //si les abscices ET ordonnées d'un aliment et de la tête correspondent le serpent se nourrit de l'aliment
         {
             joueur.ajouterPartieCorps(); //la taille du serpent augmente
             joueur.addScore(aliment.getPoint()); //le score augmente
-            /*posX = aleatoire.nextInt(34); //une position du nouvel aliment doit être généré parmi les 34 positions possible pour les abscices des aliments
-            posY = aleatoire.nextInt(23); //une position du nouvel aliment doit être généré parmi les 23 positions possible pour les ordonnées des aliments
-            */
-            aliment.setX(aleatoire.nextInt(33)*25+25);
-            aliment.setY(aleatoire.nextInt(22)*25+100);
-        }
-       //aliment.getRessourcesAliment().get(indexRessourceAliment).paintIcon(this, g, alimentposX[posX], alimentposY[posY]); //affiche l'image la où les coordonnées x,y sont indiqués, correspondant au coin supérieur gauche de l'image
-        aliment.getRessourcesAliment().get(indexRessourceAliment).paintIcon(this, g, aliment.getX(), aliment.getY());
-       
-        for(int i = 1; i< joueur.getSerpent().size(); i++) //boucle vérifiant si la tête a percutée un élément du corps
-        {
-            if (joueur.getSerpent().get(i).getX() == joueur.getTete().getX() && joueur.getSerpent().get(i).getY() == joueur.getTete().getY())
-            { 
-               gameover=true;
+            aliment.placementAleatoire(); //génération d'une nouvelle position parmis les 34 positions possibles en abscisses et les 23 posistions possibles en ordonnées
+            while(this.collisionCorpsFruit()){ //si le fruit est généré sur une partie du corps du serpent, on change ses coordonnées
+                aliment.placementAleatoire();
             }
+            
         }
+        aliment.getRessourcesAliment().get(indexRessourceAliment).paintIcon(this, g, aliment.getX(), aliment.getY()); //affiche l'image la où les coordonnées x,y sont indiqués, correspondant au coin supérieur gauche de l'image     
+        
+        if (this.collisionSnake())//on verifie si la tête du snake percute un élément du corps
+        { 
+           gameover=true;
+        }
+        
         if(gameover)
         {
             //affiche un rectangle qui masque smiley
-                g.setColor(couleurFond);
-                g.fillRect(915, 0, 600, 800);
-                g.setColor(Color.white);
-                g.setFont(new Font("algerian", Font.BOLD, 50)); //définition de l'écriture (police, type d'écriture, taille)
-                g.drawString("GAME OVER !", 200, 300); //affciahge de la zone de texte (chaine à afficher, coordonnées x,y de la zone de texte)          
-                g.setFont(new Font("algerian", Font.BOLD, 50)); //définition de l'écriture (police, type d'écriture, taille)
-                g.drawString("Press SPACE To Restart !", 50, 450); //affciahge de la zone de texte (chaine à afficher, coordonnées x,y de la zone de texte)
-                gameOver();
+            this.affichageGameOver(g);
         }
         g.dispose();
     }  
@@ -443,7 +405,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
                 repaint();
             }
         }
-        if(e.getKeyCode() == KeyEvent.VK_RIGHT) //Si flèche droite appuyée        
+        if(e.getKeyCode() == KeyEvent.VK_RIGHT && timer.isRunning()) //Si flèche droite appuyée        
         {
             if(!gameover)
             {
@@ -465,7 +427,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
                     }
             }  
         }
-        if(e.getKeyCode() == KeyEvent.VK_UP) //Si flèche haut appuyée        
+        if(e.getKeyCode() == KeyEvent.VK_UP && timer.isRunning() ) //Si flèche haut appuyée        
         {
             if(!gameover)
             {
@@ -476,7 +438,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
                 }
             }
         }
-        if(e.getKeyCode() == KeyEvent.VK_DOWN) //Si flèche bas appuyée        
+        if(e.getKeyCode() == KeyEvent.VK_DOWN && timer.isRunning()) //Si flèche bas appuyée        
         {
             if(!gameover)
             {
@@ -531,6 +493,65 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
         {
             pulsation ++;
         }   
+        this.direction(joueur);
+        repaint(); //rappelle la methode paint qui redessinera les éléments avec leurs nouvelles coordonnées
+    }
+    
+    public void stopTimer()
+    {
+        timer.stop();
+    }
+    
+     @Override
+    public void keyReleased(KeyEvent e) {
+        //throw new UnsupportedOperationException(""); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+     @Override
+    public void keyTyped(KeyEvent e) {
+        //throw new UnsupportedOperationException(""); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public boolean collisionAliment(){
+        boolean retour = false;
+        if (joueur.getTete().getX() == aliment.getX() && joueur.getTete().getY()==aliment.getY()){
+            retour = true;
+        }
+        return retour;
+    }
+    
+    public boolean collisionSnake(){
+        boolean retour = false;
+        for(int i = 1; i<joueur.getSerpent().size();i++){
+            if (joueur.getTete().getX()==joueur.getSerpent().get(i).getX() && joueur.getTete().getY()==joueur.getSerpent().get(i).getY()){
+                retour = true;
+            }
+        }
+        return retour;
+    }
+    
+    public boolean collisionCorpsFruit(){
+        boolean retour = false;
+        for(int i = 1; i<joueur.getSerpent().size();i++){
+            if (aliment.getX()==joueur.getSerpent().get(i).getX() && aliment.getY()==joueur.getSerpent().get(i).getY()){
+                retour = true;
+            }
+        }
+        return retour;
+    }
+    
+    public void affichageGameOver(Graphics g){
+                g.setColor(couleurFond);
+                g.fillRect(915, 0, 600, 800);
+                g.setColor(Color.white);
+                g.setFont(new Font("algerian", Font.BOLD, 50)); //définition de l'écriture (police, type d'écriture, taille)
+                g.drawString("GAME OVER !", 200, 300); //affciahge de la zone de texte (chaine à afficher, coordonnées x,y de la zone de texte)          
+                g.setFont(new Font("algerian", Font.BOLD, 50)); //définition de l'écriture (police, type d'écriture, taille)
+                g.drawString("Press SPACE To Restart !", 50, 450); //affciahge de la zone de texte (chaine à afficher, coordonnées x,y de la zone de texte)
+                gameOver();
+    }
+    
+    public void direction(Joueur j){
         switch(joueur.getTete().getDir())
         {       
             case up:
@@ -650,21 +671,37 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
             default:
                 //throw new AssertionError(joueur.getTete().getDir().name());
         }
-        repaint(); //rappelle la methode paint qui redessinera les éléments avec leurs nouvelles coordonnées
     }
-    
-    public void stopTimer()
-    {
-        timer.stop();
-    }
-    
-     @Override
-    public void keyReleased(KeyEvent e) {
-        //throw new UnsupportedOperationException(""); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-     @Override
-    public void keyTyped(KeyEvent e) {
-        //throw new UnsupportedOperationException(""); //To change body of generated methods, choose Tools | Templates.
-    }
+        
+        
+        public void dessineInterface(Graphics g){
+                    //définition des bords de l'image titre (dessine un rectangle)
+        g.setColor(couleurBordTitre);
+        g.drawRect(24, 20, 851, 55); //coordonnées x,y,largeur,longueur
+
+
+        //définition des bords du jeu
+        g.setColor(couleurBordJeu);
+        g.drawRect(24, 99, 851, 576); //coordonnées x,y,largeur,longueur
+
+        //définition de la zone de texte du score
+        g.setColor(couleurScore);
+        g.setFont(new Font("arial", Font.PLAIN,14)); //définition de l'écriture (police, type d'écriture, taille)
+        g.drawString("Score : ", 780, 40); //affciahge de la zone de texte (chaine à afficher, coordonnées x,y de la zone de texte)
+        g.setColor(couleurLabelScore);
+        g.setFont(new Font("arial", Font.PLAIN,14)); //définition de l'écriture (police, type d'écriture, taille)
+        g.drawString("" +joueur.getScore(), 830, 40); //affciahge de la zone de texte (chaine à afficher, coordonnées x,y de la zone de texte)
+
+        //définition de la zone de texte de la taille du serpent
+        g.setColor(couleurTaille);
+        g.setFont(new Font("arial", Font.PLAIN,14)); //définition de l'écriture (police, type d'écriture, taille)
+        g.drawString("Taille : ", 783, 60); //affciahge de la zone de texte (chaine à afficher, coordonnées x,y de la zone de texte)
+        g.setColor(couleurLabelTaille);
+        g.setFont(new Font("arial", Font.PLAIN,14)); //définition de l'écriture (police, type d'écriture, taille)
+        g.drawString("" +joueur.getSerpent().size(), 830, 60); //affciahge de la zone de texte (chaine à afficher, coordonnées x,y de la zone de texte)
+
+        //définition de l'arrière plan du jeu
+        g.setColor(Color.BLACK);
+        g.fillRect(25, 100, 850, 575);//coordonnées x,y,largeur,longueur        
+        }
 }

@@ -6,6 +6,7 @@
 package snakefx;
 
 import java.util.ArrayList;
+import java.util.Random;
 import javax.swing.ImageIcon;
 
 /**
@@ -13,18 +14,19 @@ import javax.swing.ImageIcon;
  * @author lk365606
  */
 public class Aliment {
-    int x;
-    int y;
-    int point;
-    Jouable jeu;
+    private int x;
+    private int y;
+    private int point;
+    private Jouable jeu;
+   private Random aleatoire;
     private ArrayList<ImageIcon> ressourcesAliment;
 
-    public Aliment(Jouable jeu, int x, int y) {
+    public Aliment(Jouable jeu) {
         point=50;
+        aleatoire = new Random();
         this.jeu = jeu;
         ressourcesAliment = new ArrayList<>();
-        this.x=x;
-        this.y=y;
+        this.placementAleatoire();
     }
 
     public int getX() {
@@ -57,5 +59,10 @@ public class Aliment {
     
     public void addImage(ImageIcon e){
         this.ressourcesAliment.add(e);
+    }
+    
+    public void placementAleatoire(){
+        this.setX(aleatoire.nextInt(33)*25+25);
+        this.setY(aleatoire.nextInt(22)*25+100);
     }
 }

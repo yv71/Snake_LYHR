@@ -1,2 +1,4 @@
 /SnakeFX/build/
 /SnakeFX/dist/
+*.properties
+*.xml
