@@ -417,11 +417,14 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
             highscore.setHighscore1(j.getScore());
             HigshcorePanel test = new HigshcorePanel();
             test.setVisible(true);    
-            String nomJoueur = test.getNomJoueur();
-            while(nomJoueur == null){
+            String nomJoueur = null;
+            while(test.isVisible()){
+                nomJoueur = test.getNomJoueur();
+            }
+           /** while(nomJoueur == null){
                 nomJoueur = test.getNomJoueur();
                 sleep(125);
-            }
+            }*/ 
             highscore.setNomJoueur(nomJoueur);
         }
         else if(highscore.getHighscore2()<j.getScore()){
@@ -430,23 +433,29 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
             highscore.setNomJoueur3(highscore.getNomJoueur2());
             highscore.setHighscore2(j.getScore());
             HigshcorePanel test = new HigshcorePanel();
-            test.setVisible(true);    
-            String nomJoueur2 = test.getNomJoueur(); 
-            while(nomJoueur2 == null){
+            test.setVisible(true);   
+            String nomJoueur2 = null;
+            while(test.isVisible()){
+                nomJoueur2 = test.getNomJoueur();
+            }
+            /**while(nomJoueur2 == null){
                 nomJoueur2 = test.getNomJoueur();
                 sleep(125);
-            }
+            }*/
             highscore.setNomJoueur2(nomJoueur2);
         }
         else if(highscore.getHighscore3() < j.getScore()){
             highscore.setHighscore3(j.getScore());
             HigshcorePanel test = new HigshcorePanel();
-            test.setVisible(true);    
-            String nomJoueur3 = test.getNomJoueur(); 
-            while(nomJoueur3 == null){
+            test.setVisible(true);
+            String nomJoueur3= null ;
+            while(test.isVisible()){
                 nomJoueur3 = test.getNomJoueur();
-                sleep(125);
             }
+            /**while(nomJoueur3 == null){
+                
+                sleep(125);
+            }*/
             highscore.setNomJoueur3(nomJoueur3);
         }
     }
