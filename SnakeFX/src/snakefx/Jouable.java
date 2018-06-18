@@ -193,10 +193,10 @@ public class Jouable extends JPanel implements KeyListener, ActionListener {
      */
     public void paint(Graphics g) {
         //définition arriere plan de la fenetre
-        touche =false;
+        touche = false;
         g.setColor(couleurFond);
         g.fillRect(0, 0, 1210, 690); //coordonnées x,y,largeur,longueur        
-        
+
         if (boucle % 1040 == 0) {
             ImageTitre = RessourceImageTitre1;  //récupère la ressource dans le chemin suivant : NomProjet/src/NomProjet/NomFichier.extension
 
@@ -304,7 +304,10 @@ public class Jouable extends JPanel implements KeyListener, ActionListener {
             indexRessource = 0; //récupère la ressource dans le chemin suivant : NomProjet/src/NomProjet/NomFichier.extension
             indexRessourceAliment = 0;
         }
-
+        if (this.collisionSnake())//on verifie si la tête du snake percute un élément du corps
+        {
+            this.effetCollisionSnake();
+        }
         for (int i = 0; i < joueur.getSerpent().size(); i++) //i va dans un premier temps être à 0, ce qui va dessiner l'element [0] à savoir la tête du serpent
         {
             if (i == 0 && !gameover) {
@@ -341,10 +344,6 @@ public class Jouable extends JPanel implements KeyListener, ActionListener {
         }
         if (!gameover) {
             aliment.getRessourcesAliment().get(indexRessourceAliment).paintIcon(this, g, aliment.getX(), aliment.getY()); //affiche l'image la où les coordonnées x,y sont indiqués, correspondant au coin supérieur gauche de l'image     
-        }
-        if (this.collisionSnake())//on verifie si la tête du snake percute un élément du corps
-        {
-            this.effetCollisionSnake();
         }
 
         if (gameover) {
@@ -415,10 +414,10 @@ public class Jouable extends JPanel implements KeyListener, ActionListener {
                 if (joueur.getTete().getDir() != left) {
                     joueur.getTete().setDir(right);
                 }
-                if (joueur.getTete().getDir() != right){
+                if (joueur.getTete().getDir() != right) {
                     touche = true;
                 }
-                
+
             }
         }
         if (e.getKeyCode() == KeyEvent.VK_LEFT && timer.isRunning() && !touche) //Si flèche gauche appuyée        
@@ -428,7 +427,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener {
                 if (joueur.getTete().getDir() != right) {
                     joueur.getTete().setDir(left);
                 }
-                if (joueur.getTete().getDir() != left){
+                if (joueur.getTete().getDir() != left) {
                     touche = true;
                 }
             }
@@ -440,7 +439,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener {
                 if (joueur.getTete().getDir() != down) {
                     joueur.getTete().setDir(up);
                 }
-                if (joueur.getTete().getDir() != up){
+                if (joueur.getTete().getDir() != up) {
                     touche = true;
                 }
             }
@@ -452,7 +451,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener {
                 if (joueur.getTete().getDir() != up) {
                     joueur.getTete().setDir(down);
                 }
-                if (joueur.getTete().getDir() != down){
+                if (joueur.getTete().getDir() != down) {
                     touche = true;
                 }
             }
