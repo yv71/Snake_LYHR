@@ -5,6 +5,10 @@
  */
 package snakefx;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Beelzed
@@ -16,11 +20,14 @@ public class HigshcorePanel extends javax.swing.JFrame {
      */
     
     private String nomJoueur;
-    
+    private Joueur joueur;
     public HigshcorePanel() {
         initComponents();
     }
-     
+    
+    public void setJoueur(Joueur j){
+        this.joueur = j;
+    }
     public String getNomJoueur(){
         return this.nomJoueur;
     }
@@ -105,10 +112,53 @@ public class HigshcorePanel extends javax.swing.JFrame {
         }
         else {
            this.nomJoueur = tfName.getText();
+           Highscore highscore = new Highscore();
+            try {
+                highscore.loadMe();
+            } catch (IOException ex) {
+               // Logger.getLogger(HigshcorePanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                //Logger.getLogger(HigshcorePanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                this.highscore(highscore, joueur);
+            } catch (InterruptedException ex) {
+                //Logger.getLogger(HigshcorePanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                //Logger.getLogger(HigshcorePanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
            this.dispose();
         }
     }//GEN-LAST:event_bValiderActionPerformed
 
+        public void highscore(Highscore highscore, Joueur j) throws InterruptedException, IOException{
+        System.out.println("a");
+        if (highscore.getHighscore1()<j.getScore()){
+            highscore.setHighscore3(highscore.getHighscore2());
+            highscore.setNomJoueur3(highscore.getNomJoueur2());
+            highscore.setHighscore2(highscore.getHighscore1());
+            highscore.setNomJoueur2(highscore.getNomJoueur());
+            highscore.setHighscore1(j.getScore());
+            highscore.setNomJoueur(nomJoueur);
+        }
+        else if(highscore.getHighscore2()<j.getScore()){
+            
+            highscore.setHighscore3(highscore.getHighscore2());
+            highscore.setNomJoueur3(highscore.getNomJoueur2());
+            highscore.setHighscore2(j.getScore());
+            highscore.setNomJoueur2(nomJoueur);
+        }
+        else if(highscore.getHighscore3() < j.getScore()){
+            highscore.setHighscore3(j.getScore());
+            highscore.setNomJoueur3(nomJoueur);
+        }
+            System.out.println("1."+ highscore.getNomJoueur() + " : " + highscore.getHighscore1());
+            System.out.println("2."+ highscore.getNomJoueur2() + " : " + highscore.getHighscore2());
+            System.out.println("3."+ highscore.getNomJoueur3() + " : " + highscore.getHighscore3());
+            highscore.saveMe();
+    }
+    
+    
     /**
      * @param args the command line arguments
      */

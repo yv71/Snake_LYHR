@@ -388,6 +388,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
 
         Lecteur.stopAllAudio();
         Lecteur.stopVideo();  
+
         timer.stop();
         boucle = 0;
         pulsation = 0;
@@ -397,68 +398,17 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
         joueur = new Joueur(this);
         init(joueur,aliment);
         pisteboucle = 1;    
+        HigshcorePanel pseudo = new HigshcorePanel();
+        pseudo.setJoueur(j);
+        pseudo.setVisible(true);
         
-        Highscore highscore = new Highscore();
-        highscore.loadMe();
-        this.highscore(highscore, j);
         
         
         
 
     }
     
-    public void highscore(Highscore highscore, Joueur j) throws InterruptedException{
-        System.out.println("a");
-        if (highscore.getHighscore1()<j.getScore()){
-            highscore.setHighscore3(highscore.getHighscore2());
-            highscore.setNomJoueur3(highscore.getNomJoueur2());
-            highscore.setHighscore2(highscore.getHighscore1());
-            highscore.setNomJoueur2(highscore.getNomJoueur());
-            highscore.setHighscore1(j.getScore());
-            HigshcorePanel test = new HigshcorePanel();
-            test.setVisible(true);    
-            String nomJoueur = null;
-            while(test.isVisible()){
-                nomJoueur = test.getNomJoueur();
-            }
-           /** while(nomJoueur == null){
-                nomJoueur = test.getNomJoueur();
-                sleep(125);
-            }*/ 
-            highscore.setNomJoueur(nomJoueur);
-        }
-        else if(highscore.getHighscore2()<j.getScore()){
-            
-            highscore.setHighscore3(highscore.getHighscore2());
-            highscore.setNomJoueur3(highscore.getNomJoueur2());
-            highscore.setHighscore2(j.getScore());
-            HigshcorePanel test = new HigshcorePanel();
-            test.setVisible(true);   
-            String nomJoueur2 = null;
-            while(test.isVisible()){
-                nomJoueur2 = test.getNomJoueur();
-            }
-            /**while(nomJoueur2 == null){
-                nomJoueur2 = test.getNomJoueur();
-                sleep(125);
-            }*/
-            highscore.setNomJoueur2(nomJoueur2);
-        }
-        else if(highscore.getHighscore3() < j.getScore()){
-            highscore.setHighscore3(j.getScore());
-            HigshcorePanel test = new HigshcorePanel();
-            test.setVisible(true);
-            String nomJoueur3= null ;
-            while(test.isVisible()){
-                nomJoueur3 = test.getNomJoueur();
-            }
-            /**while(nomJoueur3 == null){
-                
-                sleep(125);
-            }*/
-            highscore.setNomJoueur3(nomJoueur3);
-        }
-    }
+
     
     @Override
     public void keyPressed(KeyEvent e) //Evenement déclenché lors de l'appui sur une touche clavier (KeyListener)
