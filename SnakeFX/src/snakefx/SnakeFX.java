@@ -7,6 +7,7 @@ package snakefx;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.IOException;
 import java.net.URL;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -36,7 +37,7 @@ import javax.swing.JPanel;
 public class SnakeFX extends Application {
     
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws IOException, ClassNotFoundException {
         StackPane root = new StackPane();
         Lecteur.setupMediaView(435, -235, 300, 300);
         final SwingNode swingNode = new SwingNode();    
@@ -59,6 +60,7 @@ public class SnakeFX extends Application {
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             public void handle(WindowEvent we) {
                 jeu.stopTimer();
+                jeu.getPseudo().dispose();
             }
       });        
         

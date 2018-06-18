@@ -48,6 +48,9 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
     private ImageIcon ImageTitre;
     private ImageIcon Imagesolo;
      
+    private final HighscorePanel pseudo;
+    private Highscore highscore;
+    
     private ImageIcon RessourceTeteDroite1 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tete/tete_right.png"));
     private ImageIcon RessourceTeteDroite2 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tete/tete_right2.png"));
     private ImageIcon RessourceTeteGauche1 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tete/tete_left.png"));
@@ -148,7 +151,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
     /**
      * Constructeur de jouable, créant un joueur( le serpent) et un premier aliment, lançant musique et vidéo ainsi que le timer et initalisant les ressources du joueur et de l'aliment.
      */
-    public Jouable()
+    public Jouable() throws IOException, FileNotFoundException, ClassNotFoundException
     {
         addKeyListener(this); //déclaration de l'écouteur clavier
         setFocusable(true); //Garde le focus sur l'ecran de jeu
@@ -160,6 +163,13 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
         timer = new Timer(delai, this);//timer gerant la vitesse du serpent
         Lecteur.play("RessourcesSon/Disco Descent.mp3", 0.2);
         Lecteur.playVideo("RessourcesSon/DiscoDescentRL.mp4");
+        pseudo = new HighscorePanel();
+        pseudo.setTitle("Score");
+        pseudo.setBounds(350,350, 398, 200);
+        pseudo.setJoueur(joueur);        
+        highscore = new Highscore();
+        highscore.loadMe();
+        pseudo.setHighscore(highscore);
     }
     
     /**
@@ -174,15 +184,13 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
        
         if(boucle%1040 == 0)
         {
-              ImageTitre = RessourceImageTitre1;  //récupère la ressource dans le chemin suivant : NomProjet/src/NomProjet/NomFichier.extension
+            ImageTitre = RessourceImageTitre1;  //récupère la ressource dans le chemin suivant : NomProjet/src/NomProjet/NomFichier.extension
 
-              if(!lecteurVideo && pulsation >= 160 && pulsation <= 208)
-              {
-                  
-                   lecteurVideo = true;
-                   Lecteur.playVideo("RessourcesSon/DiscoDescentRL.mp4");
-                              
-              }
+            if(!lecteurVideo && pulsation >= 160 && pulsation <= 208)
+            {
+                lecteurVideo = true;
+                Lecteur.playVideo("RessourcesSon/DiscoDescentRL.mp4");             
+            }
               if(pulsation > 207)
               {   
                     Lecteur.stopVideo();
@@ -201,7 +209,6 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
                     couleurBordJeu = Color.RED;
                     couleurBordTitre = Color.YELLOW;
                     timer.setDelay(delai/2);
-                    //point = 100;
                     aliment.setPoint(100);
                 }
                 else
@@ -297,7 +304,6 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
             g.fillRect(851, 0, 600, 800);
           
             lecteurVideo = false;
-            //point = 50;
             aliment.setPoint(50);
             timer.setDelay(delai);
                
@@ -313,7 +319,6 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
            indexRessource = 0; //récupère la ressource dans le chemin suivant : NomProjet/src/NomProjet/NomFichier.extension
            indexRessourceAliment=0;
         }
-       
      
         for(int i = 0; i< joueur.getSerpent().size(); i++) //i va dans un premier temps être à 0, ce qui va dessiner l'element [0] à savoir la tête du serpent
         {
@@ -341,20 +346,19 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
                 }
             }
 
-            if(i!=0) //si le serpent possède déja une tête, c'est une partie du corps qui sera affichée en supplément
+            if(i!=0&&!gameover) //si le serpent possède déja une tête, c'est une partie du corps qui sera affichée en supplément
             {
-                joueur.getRessourceCorps().get(indexRessource).paintIcon(this, g, joueur.getSerpent().get(i).getX(), joueur.getSerpent().get(i).getY()); //affiche l'image la où les coordonnées x,y sont indiqués, correspondant au coin supérieur gauche de l'image
+                    joueur.getRessourceCorps().get(indexRessource).paintIcon(this, g, joueur.getSerpent().get(i).getX(), joueur.getSerpent().get(i).getY()); //affiche l'image la où les coordonnées x,y sont indiqués, correspondant au coin supérieur gauche de l'image
             }
         }
-  
         
         if(this.collisionAliment()) //si les abscices ET ordonnées d'un aliment et de la tête correspondent le serpent se nourrit de l'aliment
         {
-            this.effetCollisionAliment();
-            
+            this.effetCollisionAliment(); 
         }
-        aliment.getRessourcesAliment().get(indexRessourceAliment).paintIcon(this, g, aliment.getX(), aliment.getY()); //affiche l'image la où les coordonnées x,y sont indiqués, correspondant au coin supérieur gauche de l'image     
-        
+        if (!gameover){
+            aliment.getRessourcesAliment().get(indexRessourceAliment).paintIcon(this, g, aliment.getX(), aliment.getY()); //affiche l'image la où les coordonnées x,y sont indiqués, correspondant au coin supérieur gauche de l'image     
+        }
         if (this.collisionSnake())//on verifie si la tête du snake percute un élément du corps
         { 
            this.effetCollisionSnake();
@@ -363,8 +367,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
         if(gameover)
         {
             try {
-                //affiche un rectangle qui masque smiley
-                this.affichageGameOver(g, joueur);
+                this.affichageGameOver(g, joueur);            
             } catch (IOException ex) {
                // Logger.getLogger(Jouable.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
@@ -373,6 +376,9 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
                // Logger.getLogger(Jouable.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
+        
+        
         g.dispose();
     }  
     
@@ -382,13 +388,15 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
      * @throws java.io.FileNotFoundException
      * @throws java.lang.ClassNotFoundException
      */
-    public void gameOver(Joueur j) throws IOException, FileNotFoundException, ClassNotFoundException, InterruptedException
+    public void gameOver() throws IOException, FileNotFoundException, ClassNotFoundException, InterruptedException
     {             
-
-
         Lecteur.stopAllAudio();
         Lecteur.stopVideo();  
-
+        System.out.println(joueur.getScore());
+        pseudo.setJoueur(joueur);
+        pseudo.setHighscore(highscore);
+        pseudo.setVisible(true);
+        pseudo.toFront();
         timer.stop();
         boucle = 0;
         pulsation = 0;
@@ -397,26 +405,18 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
         start = true;
         joueur = new Joueur(this);
         init(joueur,aliment);
-        pisteboucle = 1;    
-        HigshcorePanel pseudo = new HigshcorePanel();
-        pseudo.setJoueur(j);
-        pseudo.setVisible(true);
-        
-        
-        
-        
-
+        pisteboucle = 1;           
     }
     
-
+    public HighscorePanel getPseudo(){
+        return this.pseudo;
+    }
     
     @Override
     public void keyPressed(KeyEvent e) //Evenement déclenché lors de l'appui sur une touche clavier (KeyListener)
     {
-        
-        if((joueur.getDeplacement() == 0 && e.getKeyCode()== KeyEvent.VK_UP)|| (joueur.getDeplacement() == 0 && e.getKeyCode()== KeyEvent.VK_DOWN)||(joueur.getDeplacement() == 0 && e.getKeyCode()== KeyEvent.VK_RIGHT))
+        if(((joueur.getDeplacement() == 0 && e.getKeyCode()== KeyEvent.VK_UP)|| (joueur.getDeplacement() == 0 && e.getKeyCode()== KeyEvent.VK_DOWN)||(joueur.getDeplacement() == 0 && e.getKeyCode()== KeyEvent.VK_RIGHT))&&!gameover)
         {
-            
             Lecteur.play("RessourcesSon/Disco Descent.mp3", 0.2); 
             timer.start();
         }
@@ -424,6 +424,9 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
         {
             if(gameover)
             {
+                System.out.println("1."+ highscore.getNomJoueur() + " : " + highscore.getHighscore1());
+                System.out.println("2."+ highscore.getNomJoueur2() + " : " + highscore.getHighscore2());
+                System.out.println("3."+ highscore.getNomJoueur3() + " : " + highscore.getHighscore3());
                 gameover = false;           
                 repaint();
             }
@@ -464,15 +467,13 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
         if(e.getKeyCode() == KeyEvent.VK_DOWN && timer.isRunning()) //Si flèche bas appuyée        
         {
             if(!gameover)
-            {
-                
+            {   
                 joueur.increaseDeplacement(); //on incrémente cette variable pour éviter que le joueur reste sur la position de démarrage
                 if(joueur.getTete().getDir()!=up)
                 {
                     joueur.getTete().setDir(down);
                 }
             }
-            
         }
     }
    
@@ -647,6 +648,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
      * @param g correspond à une zone graphique.
      */
     public void affichageGameOver(Graphics g, Joueur j) throws IOException, FileNotFoundException, ClassNotFoundException, InterruptedException{
+                //affiche un rectangle qui cache le smiley
                 g.setColor(couleurFond);
                 g.fillRect(915, 0, 600, 800);
                 g.setColor(Color.white);
@@ -654,7 +656,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
                 g.drawString("GAME OVER !", 200, 300); //affciahge de la zone de texte (chaine à afficher, coordonnées x,y de la zone de texte)          
                 g.setFont(new Font("algerian", Font.BOLD, 50)); //définition de l'écriture (police, type d'écriture, taille)
                 g.drawString("Press SPACE To Restart !", 50, 450); //affciahge de la zone de texte (chaine à afficher, coordonnées x,y de la zone de texte)
-                this.gameOver(j);
+                this.gameOver();
     }
     
     /**
@@ -662,96 +664,98 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
      * @param j correspond au joueur, donc au serpent.
      */
     public void direction(Joueur j){
-        switch(joueur.getTete().getDir())
-        {       
-            case up:
-                for (int i = joueur.getSerpent().size()-1; i>0; i--) //virage
-                {
-                    joueur.getSerpent().get(i).setX(joueur.getSerpent().get(i-1).getX());//fait suivre les éléments du corps jusqu'à la tête lors d'un virage
-                }
-                for(int i = joueur.getSerpent().size()-1; i>=0; i--) //boucle faisant bouger le serpent en modifiant les ordonnées
-                {
-                    if(i==0) //on bouge dans un premier temps l'élément 0 du corps qui est la tête
+        if (!gameover){            
+            switch(joueur.getTete().getDir())
+            {       
+                case up:
+                    for (int i = joueur.getSerpent().size()-1; i>0; i--) //virage
                     {
-                        joueur.getSerpent().get(i).setY(joueur.getSerpent().get(i).getY()-25); //coordonnées actuelles de la tête -25 px, taille correspondant à une case du jeu
+                        joueur.getSerpent().get(i).setX(joueur.getSerpent().get(i-1).getX());//fait suivre les éléments du corps jusqu'à la tête lors d'un virage
                     }
-                    else //puis ce sera au tour du reste du corps de bouger et donc de suivre la tête
+                    for(int i = joueur.getSerpent().size()-1; i>=0; i--) //boucle faisant bouger le serpent en modifiant les ordonnées
                     {
-                        joueur.getSerpent().get(i).setY(joueur.getSerpent().get(i-1).getY()); //une fois la tête bougée, l'élément suivant viendra prendre sa place et ainsi s'acroché a la tête; opération réalisée pour tout le reste du corps
+                        if(i==0) //on bouge dans un premier temps l'élément 0 du corps qui est la tête
+                        {
+                            joueur.getSerpent().get(i).setY(joueur.getSerpent().get(i).getY()-25); //coordonnées actuelles de la tête -25 px, taille correspondant à une case du jeu
+                        }
+                        else //puis ce sera au tour du reste du corps de bouger et donc de suivre la tête
+                        {
+                            joueur.getSerpent().get(i).setY(joueur.getSerpent().get(i-1).getY()); //une fois la tête bougée, l'élément suivant viendra prendre sa place et ainsi s'acroché a la tête; opération réalisée pour tout le reste du corps
+                        }
+                        if(this.collisionMur(i))
+                        {
+                            this.effetCollisionMur(i);
+                        }
                     }
-                    if(this.collisionMur(i))
+                    break;
+                case right:
+                    for (int i = joueur.getSerpent().size()-1; i>0; i--) //virage
                     {
-                        this.effetCollisionMur(i);
+                        joueur.getSerpent().get(i).setY(joueur.getSerpent().get(i-1).getY());//fait suivre les éléments du corps jusqu'à la tête lors d'un virage
                     }
-                }
-                break;
-            case right:
-                for (int i = joueur.getSerpent().size()-1; i>0; i--) //virage
-                {
-                    joueur.getSerpent().get(i).setY(joueur.getSerpent().get(i-1).getY());//fait suivre les éléments du corps jusqu'à la tête lors d'un virage
-                }
-                for(int i = joueur.getSerpent().size()-1; i>=0; i--) //boucle faisant bouger le serpent en modifiant les abscices
-                {
-                    if(i==0) //on bouge dans un premier temps l'élément 0 du corps qui est la tête
+                    for(int i = joueur.getSerpent().size()-1; i>=0; i--) //boucle faisant bouger le serpent en modifiant les abscices
                     {
-                        joueur.getSerpent().get(i).setX(joueur.getSerpent().get(i).getX()+25); //coordonnées actuelles de la tête +25 px, taille correspondant à une case du jeu
-                    }
-                    else //puis ce sera au tour du reste du corps de bouger et donc de suivre la tête
-                    {
-                        joueur.getSerpent().get(i).setX(joueur.getSerpent().get(i-1).getX()); //une fois la tête bougée, l'élément suivant viendra prendre sa place et ainsi s'acroché a la tête; opération réalisée pour tout le reste du corps
-                    }
-                    if(this.collisionMur(i))
-                    {
-                        this.effetCollisionMur(i);
-                    }
-                }
-           
-                break;
-            case left:
-                for (int i = joueur.getSerpent().size()-1; i>0; i--) //virage
-                {
-                    joueur.getSerpent().get(i).setY(joueur.getSerpent().get(i-1).getY());//fait suivre les éléments du corps jusqu'à la tête lors d'un virage
-                }
-                for(int i = joueur.getSerpent().size()-1; i>=0; i--) //boucle faisant bouger le serpent en modifiant les abscices
-                {
-                    if(i==0) //on bouge dans un premier temps l'élément 0 du corps qui est la tête
-                    {
-                        joueur.getSerpent().get(i).setX(joueur.getSerpent().get(i).getX()-25); //coordonnées actuelles de la tête -25 px, taille correspondant à une case du jeu
-                    }
-                    else //puis ce sera au tour du reste du corps de bouger et donc de suivre la tête
-                    {
-                        joueur.getSerpent().get(i).setX(joueur.getSerpent().get(i-1).getX()); //une fois la tête bougée, l'élément suivant viendra prendre sa place et ainsi s'acroché a la tête; opération réalisée pour tout le reste du corps
-                    }
-                    if (this.collisionMur(i))
-                    {
-                        this.effetCollisionMur(i);
-                    }
-                }
-                break;
-            case down:
-                for (int i = joueur.getSerpent().size()-1; i>0; i--) //virage
-                {
-                    joueur.getSerpent().get(i).setX(joueur.getSerpent().get(i-1).getX());//fait suivre les éléments du corps jusqu'à la tête lors d'un virage
-                }
-                for(int i = joueur.getSerpent().size()-1; i>=0; i--) //boucle faisant bouger le serpent en modifiant les ordonnées
-                {
-                    if(i==0) //on bouge dans un premier temps l'élément 0 du corps qui est la tête
-                    {
-                        joueur.getSerpent().get(i).setY(joueur.getSerpent().get(i).getY()+25); //coordonnées actuelles de la tête +25 px, taille correspondant à une case du jeu
-                    }
-                    else //puis ce sera au tour du reste du corps de bouger et donc de suivre la tête
-                    {
-                        joueur.getSerpent().get(i).setY(joueur.getSerpent().get(i-1).getY());; //une fois la tête bougée, l'élément suivant viendra prendre sa place et ainsi s'acroché a la tête; opération réalisée pour tout le reste du corps
+                        if(i==0) //on bouge dans un premier temps l'élément 0 du corps qui est la tête
+                        {
+                            joueur.getSerpent().get(i).setX(joueur.getSerpent().get(i).getX()+25); //coordonnées actuelles de la tête +25 px, taille correspondant à une case du jeu
+                        }
+                        else //puis ce sera au tour du reste du corps de bouger et donc de suivre la tête
+                        {
+                            joueur.getSerpent().get(i).setX(joueur.getSerpent().get(i-1).getX()); //une fois la tête bougée, l'élément suivant viendra prendre sa place et ainsi s'acroché a la tête; opération réalisée pour tout le reste du corps
+                        }
+                        if(this.collisionMur(i))
+                        {
+                            this.effetCollisionMur(i);
+                        }
                     }
 
-                    if(this.collisionMur(i))
+                    break;
+                case left:
+                    for (int i = joueur.getSerpent().size()-1; i>0; i--) //virage
                     {
-                        this.effetCollisionMur(i);
+                        joueur.getSerpent().get(i).setY(joueur.getSerpent().get(i-1).getY());//fait suivre les éléments du corps jusqu'à la tête lors d'un virage
                     }
-                }
-                break;
-            default:
-                //throw new AssertionError(joueur.getTete().getDir().name());
+                    for(int i = joueur.getSerpent().size()-1; i>=0; i--) //boucle faisant bouger le serpent en modifiant les abscices
+                    {
+                        if(i==0) //on bouge dans un premier temps l'élément 0 du corps qui est la tête
+                        {
+                            joueur.getSerpent().get(i).setX(joueur.getSerpent().get(i).getX()-25); //coordonnées actuelles de la tête -25 px, taille correspondant à une case du jeu
+                        }
+                        else //puis ce sera au tour du reste du corps de bouger et donc de suivre la tête
+                        {
+                            joueur.getSerpent().get(i).setX(joueur.getSerpent().get(i-1).getX()); //une fois la tête bougée, l'élément suivant viendra prendre sa place et ainsi s'acroché a la tête; opération réalisée pour tout le reste du corps
+                        }
+                        if (this.collisionMur(i))
+                        {
+                            this.effetCollisionMur(i);
+                        }
+                    }
+                    break;
+                case down:
+                    for (int i = joueur.getSerpent().size()-1; i>0; i--) //virage
+                    {
+                        joueur.getSerpent().get(i).setX(joueur.getSerpent().get(i-1).getX());//fait suivre les éléments du corps jusqu'à la tête lors d'un virage
+                    }
+                    for(int i = joueur.getSerpent().size()-1; i>=0; i--) //boucle faisant bouger le serpent en modifiant les ordonnées
+                    {
+                        if(i==0) //on bouge dans un premier temps l'élément 0 du corps qui est la tête
+                        {
+                            joueur.getSerpent().get(i).setY(joueur.getSerpent().get(i).getY()+25); //coordonnées actuelles de la tête +25 px, taille correspondant à une case du jeu
+                        }
+                        else //puis ce sera au tour du reste du corps de bouger et donc de suivre la tête
+                        {
+                            joueur.getSerpent().get(i).setY(joueur.getSerpent().get(i-1).getY());; //une fois la tête bougée, l'élément suivant viendra prendre sa place et ainsi s'acroché a la tête; opération réalisée pour tout le reste du corps
+                        }
+
+                        if(this.collisionMur(i))
+                        {
+                            this.effetCollisionMur(i);
+                        }
+                    }
+                    break;
+                default:
+                    //throw new AssertionError(joueur.getTete().getDir().name());
+            }
         }
     } 
     
@@ -760,10 +764,9 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
      * @param g correspond à la zone graphique.
      */
     public void dessineInterface(Graphics g){
-                    //définition des bords de l'image titre (dessine un rectangle)
+        //définition des bords de l'image titre (dessine un rectangle)
         g.setColor(couleurBordTitre);
         g.drawRect(24, 20, 851, 55); //coordonnées x,y,largeur,longueur
-
 
         //définition des bords du jeu
         g.setColor(couleurBordJeu);
@@ -788,5 +791,27 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
         //définition de l'arrière plan du jeu
         g.setColor(Color.BLACK);
         g.fillRect(25, 100, 850, 575);//coordonnées x,y,largeur,longueur        
+        
+        //définition de la zone highscore
+        g.setColor(couleurLabelScore);
+        g.setFont(new Font("arial", Font.PLAIN,12));
+        g.drawString("Highscore 1 : ", 30, 37);
+        g.setColor(couleurLabelTaille);
+        g.setFont(new Font("arial", Font.PLAIN,12));
+        g.drawString(highscore.getNomJoueur()+" - "+highscore.getHighscore1(), 110, 37);
+        
+        g.setColor(couleurLabelTaille);
+        g.setFont(new Font("arial", Font.PLAIN,12));
+        g.drawString("Highscore 2 : ", 30, 51);
+        g.setColor(couleurLabelScore);
+        g.setFont(new Font("arial", Font.PLAIN,12));
+        g.drawString(highscore.getNomJoueur2()+" - "+highscore.getHighscore2(), 110, 51);
+        
+        g.setColor(couleurLabelScore);
+        g.setFont(new Font("arial", Font.PLAIN,12));
+        g.drawString("Highscore 3 : ", 30, 65);
+        g.setColor(couleurLabelTaille);
+        g.setFont(new Font("arial", Font.PLAIN,12));
+        g.drawString(highscore.getNomJoueur3()+" - "+highscore.getHighscore3(), 110, 65);
     }
 }
