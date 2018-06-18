@@ -18,50 +18,53 @@ import java.util.ArrayList;
  *
  * @author Beelzed
  */
-public class Highscore implements Serializable{
+public class Highscore implements Serializable {
+
     private String nomJoueur;
     private String nomJoueur2;
     private String nomJoueur3;
-    
+
     private int highscore1;
     private int highscore2;
     private int highscore3;
-    
-    
-    public Highscore(){
-        
-        
+
+    public Highscore() {
+
     }
-    
-    public void saveMe() throws FileNotFoundException, IOException{
+
+    public void saveMe() throws FileNotFoundException, IOException {
         FileOutputStream file = new FileOutputStream("Highscore.dat");
         ObjectOutputStream os = new ObjectOutputStream(file);
         os.writeObject(this);
         os.flush();
-        os.close();       
-    }
-    
-    public void loadMe() throws FileNotFoundException, IOException, ClassNotFoundException{
-        FileInputStream file = new FileInputStream("Highscore.dat");
-        ObjectInputStream os = new ObjectInputStream(file);
-        Highscore load = (Highscore) os.readObject();    
-        this.nomJoueur = load.getNomJoueur();
-        this.highscore1 = load.getHighscore1();
-        this.nomJoueur2 = load.getNomJoueur2();
-        this.highscore2 = load.getHighscore2();
-        this.nomJoueur3 = load.getNomJoueur3();
-        this.highscore3 = load.getHighscore3();
-       
+        os.close();
     }
 
+    public void loadMe() throws FileNotFoundException, IOException, ClassNotFoundException {
+        try {
+            FileInputStream file = new FileInputStream("Highscore.dat");
+            ObjectInputStream os = new ObjectInputStream(file);
+            Highscore load = (Highscore) os.readObject();
+            this.nomJoueur = load.getNomJoueur();
+            this.highscore1 = load.getHighscore1();
+            this.nomJoueur2 = load.getNomJoueur2();
+            this.highscore2 = load.getHighscore2();
+            this.nomJoueur3 = load.getNomJoueur3();
+            this.highscore3 = load.getHighscore3();
+        } catch (FileNotFoundException e) {
+            
+        }
+
+    }
 
     public String getNomJoueur() {
         return nomJoueur;
     }
 
-    public void setNomJoueur(String nomJoueur){
+    public void setNomJoueur(String nomJoueur) {
         this.nomJoueur = nomJoueur;
     }
+
     public String getNomJoueur2() {
         return nomJoueur2;
     }
@@ -101,9 +104,5 @@ public class Highscore implements Serializable{
     public void setHighscore3(int highscore3) {
         this.highscore3 = highscore3;
     }
-    
-    
- 
-    
-    
+
 }

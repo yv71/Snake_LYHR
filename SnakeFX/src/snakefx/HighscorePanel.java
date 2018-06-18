@@ -18,27 +18,28 @@ public class HighscorePanel extends javax.swing.JFrame {
     /**
      * Creates new form HigshcorePanel
      */
-    
     private String nomJoueur;
     private Joueur joueur;
     private Highscore highscore;
+
     public HighscorePanel() {
         initComponents();
         highscore = null;
         joueur = null;
     }
-    
-    public void setJoueur(Joueur j){
+
+    public void setJoueur(Joueur j) {
         this.joueur = j;
     }
-    
-    public void setHighscore(Highscore h){
+
+    public void setHighscore(Highscore h) {
         this.highscore = h;
     }
-    
-    public String getNomJoueur(){
+
+    public String getNomJoueur() {
         return this.nomJoueur;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -115,11 +116,10 @@ public class HighscorePanel extends javax.swing.JFrame {
 
     private void bValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bValiderActionPerformed
         // TODO add your handling code here:
-        if (tfName.getText().isEmpty()){
+        if (tfName.getText().isEmpty()) {
             lError.setText("Entrez un nom valide (non vide) ! ");
-        }
-        else {
-           this.nomJoueur = tfName.getText();
+        } else {
+            this.nomJoueur = tfName.getText();
             try {
                 this.highscore(highscore, joueur);
             } catch (InterruptedException ex) {
@@ -127,36 +127,36 @@ public class HighscorePanel extends javax.swing.JFrame {
             } catch (IOException ex) {
                 //Logger.getLogger(HigshcorePanel.class.getName()).log(Level.SEVERE, null, ex);
             }
-           this.dispose();
+            this.dispose();
         }
     }//GEN-LAST:event_bValiderActionPerformed
 
-        public void highscore(Highscore highscore, Joueur j) throws InterruptedException, IOException{
-            System.out.println(this.nomJoueur + " " + joueur.getScore());
-        if (highscore.getHighscore1()<j.getScore()){
+    public void highscore(Highscore highscore, Joueur j) throws InterruptedException, IOException {
+        if (highscore.getHighscore1() < j.getScore()) {
             highscore.setHighscore3(highscore.getHighscore2());
             highscore.setNomJoueur3(highscore.getNomJoueur2());
             highscore.setHighscore2(highscore.getHighscore1());
             highscore.setNomJoueur2(highscore.getNomJoueur());
             highscore.setHighscore1(j.getScore());
             highscore.setNomJoueur(nomJoueur);
-        }
-        else if(highscore.getHighscore2()<j.getScore()){
-            
+        } else if (highscore.getHighscore2() < j.getScore()) {
+
             highscore.setHighscore3(highscore.getHighscore2());
             highscore.setNomJoueur3(highscore.getNomJoueur2());
             highscore.setHighscore2(j.getScore());
             highscore.setNomJoueur2(nomJoueur);
-        }
-        else if(highscore.getHighscore3() < j.getScore()){
+        } else if (highscore.getHighscore3() < j.getScore()) {
             highscore.setHighscore3(j.getScore());
             highscore.setNomJoueur3(nomJoueur);
         }
 
-            highscore.saveMe();
+        highscore.saveMe();
     }
     
-    
+    public void setText(String s){
+        this.tfName.setText(s);
+    }
+
     /**
      * @param args the command line arguments
      */

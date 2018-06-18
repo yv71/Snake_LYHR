@@ -169,6 +169,15 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
         pseudo.setJoueur(joueur);        
         highscore = new Highscore();
         highscore.loadMe();
+        if(highscore.getNomJoueur()==null){
+            highscore.setNomJoueur("");
+        }
+        if(highscore.getNomJoueur2()==null){
+            highscore.setNomJoueur2("");
+        }
+        if(highscore.getNomJoueur3()==null){
+            highscore.setNomJoueur3("");
+        }
         pseudo.setHighscore(highscore);
     }
     
@@ -395,6 +404,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
         System.out.println(joueur.getScore());
         pseudo.setJoueur(joueur);
         pseudo.setHighscore(highscore);
+        pseudo.setText("");
         pseudo.setVisible(true);
         pseudo.toFront();
         timer.stop();
@@ -424,9 +434,6 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
         {
             if(gameover)
             {
-                System.out.println("1."+ highscore.getNomJoueur() + " : " + highscore.getHighscore1());
-                System.out.println("2."+ highscore.getNomJoueur2() + " : " + highscore.getHighscore2());
-                System.out.println("3."+ highscore.getNomJoueur3() + " : " + highscore.getHighscore3());
                 gameover = false;           
                 repaint();
             }
