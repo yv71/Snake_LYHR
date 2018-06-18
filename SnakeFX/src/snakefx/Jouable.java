@@ -415,7 +415,10 @@ public class Jouable extends JPanel implements KeyListener, ActionListener {
                 if (joueur.getTete().getDir() != left) {
                     joueur.getTete().setDir(right);
                 }
-                touche = true;
+                if (joueur.getTete().getDir() != right){
+                    touche = true;
+                }
+                
             }
         }
         if (e.getKeyCode() == KeyEvent.VK_LEFT && timer.isRunning() && !touche) //Si flèche gauche appuyée        
@@ -425,7 +428,9 @@ public class Jouable extends JPanel implements KeyListener, ActionListener {
                 if (joueur.getTete().getDir() != right) {
                     joueur.getTete().setDir(left);
                 }
-                touche = true;
+                if (joueur.getTete().getDir() != left){
+                    touche = true;
+                }
             }
         }
         if (e.getKeyCode() == KeyEvent.VK_UP && timer.isRunning() && !touche) //Si flèche haut appuyée        
@@ -435,7 +440,9 @@ public class Jouable extends JPanel implements KeyListener, ActionListener {
                 if (joueur.getTete().getDir() != down) {
                     joueur.getTete().setDir(up);
                 }
-                touche = true;
+                if (joueur.getTete().getDir() != up){
+                    touche = true;
+                }
             }
         }
         if (e.getKeyCode() == KeyEvent.VK_DOWN && timer.isRunning() && !touche) //Si flèche bas appuyée        
@@ -445,7 +452,9 @@ public class Jouable extends JPanel implements KeyListener, ActionListener {
                 if (joueur.getTete().getDir() != up) {
                     joueur.getTete().setDir(down);
                 }
-                touche = true;
+                if (joueur.getTete().getDir() != down){
+                    touche = true;
+                }
             }
         }
     }
@@ -596,7 +605,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener {
      */
     public boolean collisionCorpsFruit() {
         boolean retour = false;
-        for (int i = 1; i < joueur.getSerpent().size(); i++) {
+        for (int i = 0; i < joueur.getSerpent().size(); i++) {
             if (aliment.getX() == joueur.getSerpent().get(i).getX() && aliment.getY() == joueur.getSerpent().get(i).getY()) {
                 retour = true;
             }
