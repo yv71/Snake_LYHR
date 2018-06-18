@@ -17,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -51,6 +52,7 @@ public class SnakeFX extends Application {
                 
         Scene scene = new Scene(root, 1200, 680);  
         primaryStage.setTitle("Snake"); 
+        primaryStage.getIcons().add(new Image(SnakeFX.class.getResourceAsStream("RessourcesImg/snake.PNG")));
         primaryStage.setResizable(false);
         primaryStage.setOnCloseRequest(e -> Platform.exit());
         primaryStage.setScene(scene);

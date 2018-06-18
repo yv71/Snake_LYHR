@@ -43,6 +43,7 @@ import snakefx.Highscore;
 public class Jouable extends JPanel implements KeyListener, ActionListener {
 
     private boolean start = true;
+    private boolean touche = false;
     private boolean gameover = false;
 
     //private ImageIcon aliment;
@@ -192,9 +193,10 @@ public class Jouable extends JPanel implements KeyListener, ActionListener {
      */
     public void paint(Graphics g) {
         //définition arriere plan de la fenetre
+        touche =false;
         g.setColor(couleurFond);
         g.fillRect(0, 0, 1210, 690); //coordonnées x,y,largeur,longueur        
-
+        
         if (boucle % 1040 == 0) {
             ImageTitre = RessourceImageTitre1;  //récupère la ressource dans le chemin suivant : NomProjet/src/NomProjet/NomFichier.extension
 
@@ -406,40 +408,44 @@ public class Jouable extends JPanel implements KeyListener, ActionListener {
                 repaint();
             }
         }
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT && timer.isRunning()) //Si flèche droite appuyée        
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT && timer.isRunning() && !touche) //Si flèche droite appuyée        
         {
             if (!gameover) {
                 joueur.increaseDeplacement();
                 if (joueur.getTete().getDir() != left) {
                     joueur.getTete().setDir(right);
                 }
+                touche = true;
             }
         }
-        if (e.getKeyCode() == KeyEvent.VK_LEFT && timer.isRunning()) //Si flèche gauche appuyée        
+        if (e.getKeyCode() == KeyEvent.VK_LEFT && timer.isRunning() && !touche) //Si flèche gauche appuyée        
         {
             if (!gameover) {
                 joueur.increaseDeplacement(); //on incrémente cette variable pour éviter que le joueur reste sur la position de démarrage
                 if (joueur.getTete().getDir() != right) {
                     joueur.getTete().setDir(left);
                 }
+                touche = true;
             }
         }
-        if (e.getKeyCode() == KeyEvent.VK_UP && timer.isRunning()) //Si flèche haut appuyée        
+        if (e.getKeyCode() == KeyEvent.VK_UP && timer.isRunning() && !touche) //Si flèche haut appuyée        
         {
             if (!gameover) {
                 joueur.increaseDeplacement(); //on incrémente cette variable pour éviter que le joueur reste sur la position de démarrage
                 if (joueur.getTete().getDir() != down) {
                     joueur.getTete().setDir(up);
                 }
+                touche = true;
             }
         }
-        if (e.getKeyCode() == KeyEvent.VK_DOWN && timer.isRunning()) //Si flèche bas appuyée        
+        if (e.getKeyCode() == KeyEvent.VK_DOWN && timer.isRunning() && !touche) //Si flèche bas appuyée        
         {
             if (!gameover) {
                 joueur.increaseDeplacement(); //on incrémente cette variable pour éviter que le joueur reste sur la position de démarrage
                 if (joueur.getTete().getDir() != up) {
                     joueur.getTete().setDir(down);
                 }
+                touche = true;
             }
         }
     }
