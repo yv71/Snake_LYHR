@@ -32,6 +32,11 @@ public class Highscore implements Serializable {
 
     }
 
+    /**
+     * Méthode permettant la sauvegarde du fichier Highscore contenant les informations des meilleurs scores du jeu
+     * @throws FileNotFoundException
+     * @throws IOException 
+     */
     public void saveMe() throws FileNotFoundException, IOException {
         FileOutputStream file = new FileOutputStream("Highscore.dat");
         ObjectOutputStream os = new ObjectOutputStream(file);
@@ -40,6 +45,12 @@ public class Highscore implements Serializable {
         os.close();
     }
 
+    /**
+     * Méthode permettant le chargement du fichier de sauvegarde Highscore contenant les informations des meilleurs scores du jeu
+     * @throws FileNotFoundException
+     * @throws IOException
+     * @throws ClassNotFoundException 
+     */
     public void loadMe() throws FileNotFoundException, IOException, ClassNotFoundException {
         try {
             FileInputStream file = new FileInputStream("Highscore.dat");

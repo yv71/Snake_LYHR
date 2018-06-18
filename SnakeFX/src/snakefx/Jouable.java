@@ -414,6 +414,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener{
         test = false;
         start = true;
         joueur = new Joueur(this);
+        aliment = new Aliment(this);
         init(joueur,aliment);
         pisteboucle = 1;           
     }

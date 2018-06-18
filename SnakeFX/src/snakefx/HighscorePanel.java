@@ -113,7 +113,10 @@ public class HighscorePanel extends javax.swing.JFrame {
     private void tfNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfNameActionPerformed
-
+/**
+ * Méthode permettant de délcencher le changement de score après l'appuie sur le bouton de la jframe
+ * @param evt 
+ */
     private void bValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bValiderActionPerformed
         // TODO add your handling code here:
         if (tfName.getText().isEmpty()) {
@@ -121,7 +124,7 @@ public class HighscorePanel extends javax.swing.JFrame {
         } else {
             this.nomJoueur = tfName.getText();
             try {
-                this.highscore(highscore, joueur);
+                this.changeHighscore(highscore, joueur);
             } catch (InterruptedException ex) {
                 //Logger.getLogger(HigshcorePanel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
@@ -130,8 +133,15 @@ public class HighscorePanel extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_bValiderActionPerformed
-
-    public void highscore(Highscore highscore, Joueur j) throws InterruptedException, IOException {
+    
+    /**
+     * Méthode permettant le changement des meilleurs score en fonction du score du joueur
+     * @param highscore => variable de type highscore contenant les meilleurs scores du jeu
+     * @param j ==> joueur dont on doit tester le score
+     * @throws InterruptedException
+     * @throws IOException 
+     */
+    public void changeHighscore(Highscore highscore, Joueur j) throws InterruptedException, IOException {
         if (highscore.getHighscore1() < j.getScore()) {
             highscore.setHighscore3(highscore.getHighscore2());
             highscore.setNomJoueur3(highscore.getNomJoueur2());
