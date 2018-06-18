@@ -53,7 +53,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener {
     private final HighscorePanel pseudo;
     private Highscore highscore;
 
-    // Affectation de chacune des 30 images ressources
+    // Affectation de chacune des 35 images ressources
     private ImageIcon RessourceTeteDroite1 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tete/tete_right.png"));
     private ImageIcon RessourceTeteDroite2 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tete/tete_right2.png"));
     private ImageIcon RessourceTeteGauche1 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tete/tete_left.png"));
@@ -154,7 +154,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener {
 
     /**
      * Constructeur de jouable, créant un joueur( le serpent) et un premier
-     * aliment, lançant musique et vidéo ainsi que le timer et initalisant les
+     * aliment, lançant musique et vidéo (dans le but de les chargées une premieres fois) ainsi que le timer et initalisant les
      * ressources du joueur et de l'aliment.
      */
     public Jouable() throws IOException, FileNotFoundException, ClassNotFoundException {
@@ -187,7 +187,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener {
     }
 
     /**
-     * Définit l'interface graphique.
+     * Définit l'interface graphique. La variable boucle va faire changer de couleurs les différents éléments a chaque pulsation de la musique
      *
      * @param g correspond à la zone graphique.
      */
@@ -425,7 +425,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener {
         if (e.getKeyCode() == KeyEvent.VK_LEFT && timer.isRunning() && !touche) //Si flèche gauche appuyée        
         {
             if (!gameover) {
-                joueur.increaseDeplacement(); //on incrémente cette variable pour éviter que le joueur reste sur la position de démarrage
+                joueur.increaseDeplacement();
                 if (joueur.getTete().getDir() != right) {
                     joueur.getTete().setDir(left);
                 }
@@ -437,7 +437,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener {
         if (e.getKeyCode() == KeyEvent.VK_UP && timer.isRunning() && !touche) //Si flèche haut appuyée        
         {
             if (!gameover) {
-                joueur.increaseDeplacement(); //on incrémente cette variable pour éviter que le joueur reste sur la position de démarrage
+                joueur.increaseDeplacement(); 
                 if (joueur.getTete().getDir() != down) {
                     joueur.getTete().setDir(up);
                 }
@@ -449,7 +449,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener {
         if (e.getKeyCode() == KeyEvent.VK_DOWN && timer.isRunning() && !touche) //Si flèche bas appuyée        
         {
             if (!gameover) {
-                joueur.increaseDeplacement(); //on incrémente cette variable pour éviter que le joueur reste sur la position de démarrage
+                joueur.increaseDeplacement();
                 if (joueur.getTete().getDir() != up) {
                     joueur.getTete().setDir(down);
                 }
@@ -462,17 +462,17 @@ public class Jouable extends JPanel implements KeyListener, ActionListener {
 
     /**
      * Méthode correspondant à l'action déroulée quand un évènement est
-     * déclenché, ici, lorsqu'une touche a bien été appuyée.
+     * déclenché, ici, à chaque tick du timer (104 ms)
      *
      * @param e correspond à l'évènement déclenché.
      */
     @Override
-    public void actionPerformed(ActionEvent e) //Evenement déclenché lorsqu'une touche a bien été appuyée (ActionListener)
+    public void actionPerformed(ActionEvent e)
     {
-
+        //gestion des pistes audio pour créer une boucle audio infini cadencée sur les pulsations de la musique
         boucle += timer.getDelay();
 
-        if (pulsation == 336 && !test) //2:55:500 //175500
+        if (pulsation == 336 && !test) 
         {
             test = true;
             Lecteur.play("RessourcesSon/DiscoDescentBoucle.mp3", 0.2);
@@ -480,7 +480,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener {
             pulsation = 17;
             pisteboucle = 1;
         } else {
-            if (pulsation == 336 && test) //2:47:060 //167060
+            if (pulsation == 336 && test)
             {
                 if (pisteboucle == 1) {
                     Lecteur.play("RessourcesSon/DiscoDescentBoucle2.mp3", 0.2);
@@ -518,7 +518,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener {
     }
 
     /**
-     * Si le joueur percute un mur et qu'il se trouve en phase "bonus" (pulsaton
+     * Si le joueur percute un mur et qu'il se trouve en phase "bonus" (pulsation
      * entre 160 et 207), le serpent peut traverser le mur, sinon, le joueur
      * perd.
      *
@@ -757,18 +757,18 @@ public class Jouable extends JPanel implements KeyListener, ActionListener {
         //définition de la zone de texte du score
         g.setColor(couleurScore);
         g.setFont(new Font("arial", Font.PLAIN, 14)); //définition de l'écriture (police, type d'écriture, taille)
-        g.drawString("Score : ", 780, 40); //affciahge de la zone de texte (chaine à afficher, coordonnées x,y de la zone de texte)
+        g.drawString("Score : ", 780, 40); //affichage de la zone de texte (chaine à afficher, coordonnées x,y de la zone de texte)
         g.setColor(couleurLabelScore);
         g.setFont(new Font("arial", Font.PLAIN, 14)); //définition de l'écriture (police, type d'écriture, taille)
-        g.drawString("" + joueur.getScore(), 830, 40); //affciahge de la zone de texte (chaine à afficher, coordonnées x,y de la zone de texte)
+        g.drawString("" + joueur.getScore(), 830, 40); //affichage de la zone de texte (chaine à afficher, coordonnées x,y de la zone de texte)
 
         //définition de la zone de texte de la taille du serpent
         g.setColor(couleurTaille);
         g.setFont(new Font("arial", Font.PLAIN, 14)); //définition de l'écriture (police, type d'écriture, taille)
-        g.drawString("Taille : ", 783, 60); //affciahge de la zone de texte (chaine à afficher, coordonnées x,y de la zone de texte)
+        g.drawString("Taille : ", 783, 60); //affichage de la zone de texte (chaine à afficher, coordonnées x,y de la zone de texte)
         g.setColor(couleurLabelTaille);
         g.setFont(new Font("arial", Font.PLAIN, 14)); //définition de l'écriture (police, type d'écriture, taille)
-        g.drawString("" + joueur.getSerpent().size(), 830, 60); //affciahge de la zone de texte (chaine à afficher, coordonnées x,y de la zone de texte)
+        g.drawString("" + joueur.getSerpent().size(), 830, 60); //affichage de la zone de texte (chaine à afficher, coordonnées x,y de la zone de texte)
 
         //définition de l'arrière plan du jeu
         g.setColor(Color.BLACK);
