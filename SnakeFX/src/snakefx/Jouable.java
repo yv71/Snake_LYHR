@@ -95,7 +95,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener {
     private Timer timer;
     private int delai = 104;//vitesse du serpent
     private int boucle = 0;
-    private int pulsation = 0;
+    private int pulsation = 155;
     boolean test = false;
     boolean lecteurVideo = false;
     int pisteboucle = 0;
@@ -286,8 +286,8 @@ public class Jouable extends JPanel implements KeyListener, ActionListener {
             Imagesolo.paintIcon(this, g, 950, 230);
         } else {
             //affiche un rectangle qui masque smiley
-            g.setColor(couleurFond);
-            g.fillRect(851, 0, 600, 800);
+            //g.setColor(couleurFond);
+            //g.fillRect(651, 0, 600, 800);
 
             lecteurVideo = false;
             aliment.setPoint(50);
@@ -637,7 +637,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener {
     public void affichageGameOver(Graphics g, Joueur j) throws IOException, FileNotFoundException, ClassNotFoundException, InterruptedException {
         //affiche un rectangle qui cache le smiley
         g.setColor(couleurFond);
-        g.fillRect(915, 0, 600, 800);
+        g.fillRect(880, 0, 600, 800);
         g.setColor(Color.white);
         g.setFont(new Font("algerian", Font.BOLD, 50)); //définition de l'écriture (police, type d'écriture, taille)
         g.drawString("GAME OVER !", 200, 300); //affciahge de la zone de texte (chaine à afficher, coordonnées x,y de la zone de texte)          
