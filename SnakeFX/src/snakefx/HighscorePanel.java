@@ -73,7 +73,7 @@ public class HighscorePanel extends javax.swing.JFrame {
 
         jLabel1.setText("Entrez votre pseudo ! Il sera sauvegardé et vous");
 
-        jLabel2.setText("pourrez voir votre score à battre ! ");
+        jLabel2.setText("pourrez voir vos scores à battre ! ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

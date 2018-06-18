@@ -58,6 +58,7 @@ public class SnakeFX extends Application {
         primaryStage.setScene(scene);
         primaryStage.setX(10);
         primaryStage.setY(10);
+        primaryStage.centerOnScreen();
         primaryStage.show();
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             public void handle(WindowEvent we) {

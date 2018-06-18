@@ -46,7 +46,6 @@ public class Jouable extends JPanel implements KeyListener, ActionListener {
     private boolean touche = false;
     private boolean gameover = false;
 
-    //private ImageIcon aliment;
     private ImageIcon smiley;
     private ImageIcon ImageTitre;
     private ImageIcon Imagesolo;
@@ -54,6 +53,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener {
     private final HighscorePanel pseudo;
     private Highscore highscore;
 
+    // Affectation de chacune des 30 images ressources
     private ImageIcon RessourceTeteDroite1 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tete/tete_right.png"));
     private ImageIcon RessourceTeteDroite2 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tete/tete_right2.png"));
     private ImageIcon RessourceTeteGauche1 = new ImageIcon(Jouable.class.getResource("RessourcesImg/Tete/tete_left.png"));
@@ -167,7 +167,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener {
         init(joueur, aliment);
         timer = new Timer(delai, this);//timer gerant la vitesse du serpent
         Lecteur.play("RessourcesSon/Disco Descent.mp3", 0.2);
-        Lecteur.playVideo("RessourcesSon/DiscoDescentRL.mp4");
+        Lecteur.playVideo("RessourcesSon/DiscoDescentRL.mp4"); //chargement des ressources dans le constructeur pour que ces dernières soient prêtes à êtres deployées au moment voulu
         pseudo = new HighscorePanel();
         pseudo.setTitle("Score");
         pseudo.setBounds(350, 350, 398, 200);
@@ -198,7 +198,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener {
         g.fillRect(0, 0, 1210, 690); //coordonnées x,y,largeur,longueur        
 
         if (boucle % 1040 == 0) {
-            ImageTitre = RessourceImageTitre1;  //récupère la ressource dans le chemin suivant : NomProjet/src/NomProjet/NomFichier.extension
+            ImageTitre = RessourceImageTitre1; 
 
             if (!lecteurVideo && pulsation >= 160 && pulsation <= 208) {
                 lecteurVideo = true;
@@ -233,7 +233,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener {
                 couleurBordTitre = Color.GREEN;
             }
         } else if (boucle % 520 == 0) {
-            ImageTitre = RessourceImageTitre2;  //récupère la ressource dans le chemin suivant : NomProjet/src/NomProjet/NomFichier.extension
+            ImageTitre = RessourceImageTitre2; 
             if (pulsation >= 160 && pulsation <= 208) {
                 smiley = RessourceSmiley2;
                 Imagesolo = RessourceImageSolo2;
@@ -301,7 +301,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener {
             Lecteur.stopAllAudio();
             Lecteur.stopVideo();
             start = false;
-            indexRessource = 0; //récupère la ressource dans le chemin suivant : NomProjet/src/NomProjet/NomFichier.extension
+            indexRessource = 0; 
             indexRessourceAliment = 0;
         }
         if (this.collisionSnake())//on verifie si la tête du snake percute un élément du corps
@@ -371,12 +371,14 @@ public class Jouable extends JPanel implements KeyListener, ActionListener {
     public void gameOver() throws IOException, FileNotFoundException, ClassNotFoundException, InterruptedException {
         Lecteur.stopAllAudio();
         Lecteur.stopVideo();
+        highscore.setHighscore1(0);
         if (highscore.getHighscore3() < joueur.getScore()) {
             pseudo.setJoueur(joueur);
             pseudo.setHighscore(highscore);
             pseudo.setText("");
             pseudo.setVisible(true);
             pseudo.toFront();
+            pseudo.setBounds(850,450, 400, 200);
         }
         timer.stop();
         boucle = 0;

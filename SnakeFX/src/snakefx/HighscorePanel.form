@@ -82,7 +82,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="pourrez voir votre score &#xe0; battre ! "/>
+        <Property name="text" type="java.lang.String" value="pourrez voir vos scores &#xe0; battre ! "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lError">
