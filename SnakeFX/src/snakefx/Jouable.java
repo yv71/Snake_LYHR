@@ -95,7 +95,7 @@ public class Jouable extends JPanel implements KeyListener, ActionListener {
     private Timer timer;
     private int delai = 104;//vitesse du serpent
     private int boucle = 0;
-    private int pulsation = 155;
+    private int pulsation = 0;
     boolean test = false;
     boolean lecteurVideo = false;
     int pisteboucle = 0;

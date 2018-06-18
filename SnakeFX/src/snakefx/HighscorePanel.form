@@ -38,7 +38,7 @@
                       <Component id="bValider" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="50" max="32767" attributes="0"/>
+              <EmptySpace pref="52" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -77,12 +77,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Entrez votre pseudo ! Il sera sauvegard&#xe9; si vous faites"/>
+        <Property name="text" type="java.lang.String" value="Entrez votre pseudo ! Il sera sauvegard&#xe9; et vous"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="partie des meilleurs joueurs ! "/>
+        <Property name="text" type="java.lang.String" value="pourrez voir votre score &#xe0; battre ! "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lError">

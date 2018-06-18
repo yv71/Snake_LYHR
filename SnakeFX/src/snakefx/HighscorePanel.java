@@ -71,9 +71,9 @@ public class HighscorePanel extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Entrez votre pseudo ! Il sera sauvegardé si vous faites");
+        jLabel1.setText("Entrez votre pseudo ! Il sera sauvegardé et vous");
 
-        jLabel2.setText("partie des meilleurs joueurs ! ");
+        jLabel2.setText("pourrez voir votre score à battre ! ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -89,7 +89,7 @@ public class HighscorePanel extends javax.swing.JFrame {
                         .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bValider)))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
